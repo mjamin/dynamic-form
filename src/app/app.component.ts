@@ -6,6 +6,7 @@ import { SplitComponent } from "angular-split";
 
 import { DynamicFormController } from "./dynamic-form/dynamic-form-controller";
 import { withSubscriptionSink } from "./shared/mixins/subscription-sink";
+import { DEFAULT_FORM } from "./default-form";
 
 @Component({
     selector: "app-root",
@@ -16,7 +17,7 @@ import { withSubscriptionSink } from "./shared/mixins/subscription-sink";
 export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
     private _editor: monaco.editor.IEditor;
 
-    editorFormControl = new FormControl(this.load("form-schema", "{\n    tabs: []\n}"));
+    editorFormControl = new FormControl(this.load("form-schema", DEFAULT_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
     formController = new DynamicFormController();
     hasErrors = false;
