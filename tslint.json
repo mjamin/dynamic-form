@@ -17,13 +17,13 @@
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "directive-selector": [
-      true,
+      false,
       "attribute",
       "app",
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
       "app",
       "kebab-case"
@@ -42,7 +42,7 @@
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      140
+      210
     ],
     "member-ordering": [
       true,
@@ -78,7 +78,7 @@
     ],
     "quotemark": [
       true,
-      "single"
+      "double"
     ],
     "semicolon": {
       "options": [
@@ -120,7 +120,8 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-leading-underscore"
       ]
     },
     "whitespace": {
