@@ -1,0 +1,6 @@
+<mat-form-field class="mat-form-field-full-width" appearance="outline" floatLabel="always">
+    <mat-label>{{field.label}}</mat-label>
+    <mat-checkbox matFormFieldControl [formControlName]="field.id" [required]="required">Check me!</mat-checkbox>
+    <mat-error *ngIf="control.invalid">{{error}}</mat-error>
+    <mat-hint *ngIf="field.hint">{{field.hint}}</mat-hint>
+</mat-form-field>

@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+
+$custom-typography: mat-typography-config(
+    $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-core($custom-typography);
+
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+
+$candy-app-theme: mat-light-theme((
+    color: (
+        primary: $candy-app-primary,
+        accent: $candy-app-accent,
+        warn: $candy-app-warn
+    )
+));
+
+@include angular-material-theme($candy-app-theme);
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    background: #f4f4f4;
+}
+
+main {
+    margin: 0 auto;
+    padding: 32px 0;
+    max-width: 960px;
+}
+
+.mat-form-field-full-width {
+    width: 100%;
+}

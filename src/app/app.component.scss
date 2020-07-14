@@ -1,0 +1,36 @@
+#code-area {
+    ngx-monaco-editor {
+        height: 100%;
+
+        .editor-container {
+            overflow: hidden;
+            height: 100% !important;
+        }
+    }
+}
+
+#form-area {
+    app-dynamic-form {
+        margin: 24px;
+        position: relative;
+
+        &.disabled {
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255,255,255,.5);
+                z-index: 10000;
+            }
+        }
+
+        form {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+    }
+}
