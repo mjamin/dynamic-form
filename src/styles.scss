@@ -40,3 +40,7 @@ main {
 .mat-form-field-full-width {
     width: 100%;
 }
+
+dynamic-form-widget-checkbox.single .mat-form-field-infix {
+    border-top-width: 0.325em;
+}

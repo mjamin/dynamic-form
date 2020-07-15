@@ -1,11 +1,11 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
-
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { PortalModule } from "@angular/cdk/portal";
 
 import { MaterialModule } from "../shared/modules/material/material.module";
 import { MatFormFieldControlModule } from "../shared/modules/mat-form-field-control/mat-form-field-control.module";
+import { CheckboxGroupModule } from "../shared/modules/checkbox-group/checkbox-group.module";
 
 import { CheckboxComponent } from "./widgets/checkbox/checkbox.component";
 import { RadioComponent } from "./widgets/radio/radio.component";
@@ -19,10 +19,11 @@ import { provideFormWidgets } from "./dynamic-form-widgets";
 @NgModule({
     imports: [
         CommonModule,
+        ReactiveFormsModule,
+        PortalModule,
         MaterialModule,
         MatFormFieldControlModule,
-        PortalModule,
-        ReactiveFormsModule
+        CheckboxGroupModule,
     ],
     declarations: [
         DynamicFormComponent,

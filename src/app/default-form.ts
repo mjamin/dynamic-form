@@ -47,7 +47,7 @@ export const DEFAULT_FORM = JSON.stringify({
                             type: "radio",
                             placeholder: "Test",
                             validators: {
-                                required: false
+                                required: true
                             },
                             config: {
                                 options: [
@@ -68,8 +68,27 @@ export const DEFAULT_FORM = JSON.stringify({
                         },
                         {
                             id: "checkbox",
-                            label: "A checkbox",
-                            type: "checkbox"
+                            label: "A checkbox group",
+                            type: "checkbox",
+                            validators: {
+                                required: true
+                            },
+                            config: {
+                                options: [
+                                    {
+                                        label: "Option 1",
+                                        value: 1
+                                    },
+                                    {
+                                        label: "Option 2",
+                                        value: 2
+                                    },
+                                    {
+                                        label: "Option 3",
+                                        value: 3
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -80,12 +99,36 @@ export const DEFAULT_FORM = JSON.stringify({
             label: "Second Tab",
             fieldsets: [
                 {
-                    label: "Yet another checkbox",
+                    label: "More checkboxes",
                     fields: [
                         {
-                            id: "checkbox",
+                            id: "checkbox-2",
                             label: "Checkbox No. 2",
-                            type: "checkbox"
+                            type: "checkbox",
+                            config: {
+                                options: [
+                                    {
+                                        label: "Option 1",
+                                        value: 1
+                                    },
+                                    {
+                                        label: "Option 2",
+                                        value: 2
+                                    },
+                                    {
+                                        label: "Option 3",
+                                        value: 3
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            id: "checkbox-3",
+                            label: "I totally agree to everything in the Terms and Conditions that I have not read.",
+                            type: "checkbox",
+                            validators: {
+                                required: true
+                            }
                         }
                     ]
                 }
