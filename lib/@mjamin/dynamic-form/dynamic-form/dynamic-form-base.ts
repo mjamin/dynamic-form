@@ -37,6 +37,13 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
                 this.formEvents.emit(new FormStatusChangedEvent(this.formGroup));
             })
         ));
+
+        this.subscribe(this.formGroup.valueChanges.pipe(
+            distinctUntilChanged(),
+            tap(() => {
+                this.formEvents.emit(new FormValueChangedEvent(this.formGroup));
+            })
+        ));
     }
 
     @Input()

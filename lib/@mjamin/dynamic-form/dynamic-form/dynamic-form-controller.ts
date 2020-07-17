@@ -11,8 +11,13 @@ export class MjDynamicFormController {
     private _formEventsSubscription: Subscription;
     private _schema: MjDynamicFormSchema;
     private _values: {[key: string]: any};
-    private _lastValid: boolean = null;
     private _validSubject = new ReplaySubject<boolean>(1);
+    private _valuesSubject = new ReplaySubject<{[key: string]: any}>(1);
+    private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
+
+    get values(): Observable<{[key: string]: any}> {
+        return this._valuesSubject.asObservable();
+    }
 
     get valid(): Observable<boolean> {
         return this._validSubject.asObservable();
@@ -24,6 +29,8 @@ export class MjDynamicFormController {
         if (this._attached) {
             this._formRef.setValues(values, false);
         }
+
+        this._valuesSubject.next(values);
     }
 
     setSchema(schema: MjDynamicFormSchema): void {
@@ -32,6 +39,8 @@ export class MjDynamicFormController {
         if (this._attached) {
             this._formRef.setSchema(schema, false);
         }
+
+        this._schemaSubject.next(schema);
     }
 
     attach(form: DynamicFormRef): void {
@@ -71,16 +80,18 @@ export class MjDynamicFormController {
     private handleFormEvent(event: DynamicFormEvent): void {
         if (event instanceof FormValueChangedEvent) {
             this._values = event.form.value;
+            this._valuesSubject.next(event.form.value);
             return;
         }
 
         if (event instanceof FormSchemaChangedEvent) {
             this._schema = event.schema;
+            this._schemaSubject.next(event.schema);
             return;
         }
 
         if (event instanceof FormStatusChangedEvent) {
-                this._validSubject.next(event.form.valid);
+            this._validSubject.next(event.form.valid);
             return;
         }
     }
