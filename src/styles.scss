@@ -41,6 +41,35 @@ main {
     width: 100%;
 }
 
-dynamic-form-widget-checkbox.single .mat-form-field-infix {
-    border-top-width: 0.325em;
+df-form {
+    fieldset ~ fieldset {
+        margin-top: 16px;
+    }
+
+    fieldset {
+        > label {
+            display: block;
+            margin-bottom: 8px;
+        }
+    }
+
+    .df-tab-container {
+        display: flex;
+        margin-bottom: 8px;
+
+        .df-tab {
+            cursor: pointer;
+            padding: 8px;
+            flex: 0 0 auto;
+            border-radius: 4px;
+
+            &.active {
+                background: rgba(0,0,0,.1);
+            }
+
+            &~.df-tab {
+                margin-left: 16px;
+            }
+        }
+    }
 }

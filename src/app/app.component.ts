@@ -4,8 +4,9 @@ import { FormControl } from "@angular/forms";
 
 import { SplitComponent } from "angular-split";
 
-import { DynamicFormController } from "./dynamic-form/dynamic-form-controller";
-import { withSubscriptionSink } from "./shared/mixins/subscription-sink";
+import { withSubscriptionSink } from "@mjamin/subscription-sink";
+import { DynamicFormController } from "@mjamin/dynamic-form";
+
 import { DEFAULT_FORM } from "./default-form";
 
 @Component({

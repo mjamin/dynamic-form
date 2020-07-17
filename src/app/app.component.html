@@ -3,6 +3,6 @@
         <ngx-monaco-editor [options]="editorOptions" [formControl]="editorFormControl" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
     </as-split-area>
     <as-split-area id="form-area" [size]="splitData.sizes[1]">
-        <app-dynamic-form *ngIf="visible" [controller]="formController" [class.disabled]="hasErrors"></app-dynamic-form>
+        <df-mat-card-form *ngIf="visible" [controller]="formController" [class.disabled]="hasErrors"></df-mat-card-form>
     </as-split-area>
 </as-split>

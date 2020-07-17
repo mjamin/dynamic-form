@@ -1,0 +1,11 @@
+<form *ngIf="schema$ | async as schema" [formGroup]="formGroup">
+    <div class="df-tab-container" *ngIf="schema.tabs && schema.tabs.length > 0">
+        <div class="df-tab" *ngFor="let tab of schema.tabs; let i = index" [id]="tab.id" [class.active]="isSelectedTab(schema, tab, i)" (click)="selectTab(tab)">{{tab.label}}</div>
+    </div>
+    <div *ngFor="let t of schema.tabs; let i = index" [hidden]="!isSelectedTab(schema, t, i)">
+        <fieldset *ngFor="let fs of t.fieldsets">
+            <label>{{fs.label}}</label>
+            <df-widget-container *ngFor="let f of fs.fields" [field]="f" [form]="formGroup"></df-widget-container>
+        </fieldset>
+    </div>
+</form>
