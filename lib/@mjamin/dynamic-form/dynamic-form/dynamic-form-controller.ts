@@ -80,11 +80,7 @@ export class MjDynamicFormController {
         }
 
         if (event instanceof FormStatusChangedEvent) {
-            if (this._lastValid == null || this._lastValid !== event.form.valid) {
-                this._lastValid = event.form.valid;
                 this._validSubject.next(event.form.valid);
-            }
-
             return;
         }
     }
