@@ -30,10 +30,12 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         super();
     }
 
-    visible = true;
+    onDelete(): void {
+        this.pushEditorValue(JSON.stringify({ label: "An example form", tabs: [] }, null, 4));
+    }
 
-    toggle(): void {
-        this.visible = !this.visible;
+    onReset(): void {
+        this.pushEditorValue(DEFAULT_FORM);
     }
 
     onEditorInit(editor: any): void {
@@ -65,6 +67,13 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
                 }
             })
         ));
+    }
+
+    private pushEditorValue(value: string): void {
+        const selection = this._editor.getSelection();
+        const model = this._editor.getModel() as monaco.editor.ITextModel;
+        model.pushEditOperations([], [{ range: model.getFullModelRange(), text: value }], () => null);
+        this._editor.setSelection(selection);
     }
 
     private updateErrorState(): void {

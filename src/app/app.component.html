@@ -3,6 +3,18 @@
         <ngx-monaco-editor [options]="editorOptions" [formControl]="editorFormControl" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
     </as-split-area>
     <as-split-area id="form-area" [size]="splitData.sizes[1]">
-        <mj-dynamic-card-form [controller]="formController" [class.disabled]="hasErrors"></mj-dynamic-card-form>
+        <mat-toolbar color="primary">
+            <button mat-button type="button" (click)="onDelete()">Delete</button>
+            <button mat-button type="button" (click)="onReset()">Reset to default</button>
+            <ng-container *mjAsync="let valid of formController.valid">
+                <button mat-icon-button style="margin-left: auto"  [color]="!valid ? 'warn' : ''">
+                    <mat-icon *ngIf="valid">check</mat-icon>
+                    <mat-icon *ngIf="!valid">error_outline</mat-icon>
+                </button>
+            </ng-container>
+        </mat-toolbar>
+        <div id="form-area-form-container" [class.disabled]="hasErrors">
+            <mj-dynamic-card-form [controller]="formController" ></mj-dynamic-card-form>
+        </div>
     </as-split-area>
 </as-split>

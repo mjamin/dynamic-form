@@ -2,6 +2,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 import { AngularSplitModule } from "angular-split";
 import { MonacoEditorModule } from "ngx-monaco-editor";
@@ -21,6 +24,9 @@ import { AppComponent } from "./app.component";
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatToolbarModule,
         AngularSplitModule.forRoot(),
         MonacoEditorModule.forRoot(MONACO_EDITOR_CONFIG),
         MjCommonModule,

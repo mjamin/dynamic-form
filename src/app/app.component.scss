@@ -10,9 +10,12 @@
 }
 
 #form-area {
-    mj-dynamic-form, mj-dynamic-card-form {
-        margin: 24px;
+    display: flex;
+    flex-direction: column;
+
+    #form-area-form-container {
         position: relative;
+        flex: 1;
 
         &.disabled {
             &:before {
@@ -23,14 +26,23 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-color: rgba(255,255,255,.5);
+                background-color: #fafafa;
+                opacity: .5;
                 z-index: 10000;
             }
         }
+    }
+
+    mj-dynamic-form, mj-dynamic-card-form {
+        padding: 24px;
 
         form {
             max-width: 960px;
             margin: 0 auto;
         }
+    }
+
+    mat-toolbar {
+        flex: 0 0 auto;
     }
 }
