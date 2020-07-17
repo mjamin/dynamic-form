@@ -120,12 +120,16 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
     }
 
     private addFormControl(id: string, field: DynamicFormSchemaField): void {
-        this.formGroup.addControl(id, new FormControl("", this.getValidators(field)));
+        this.formGroup.addControl(id, new FormControl(field.defaultValue, this.getValidators(field)));
     }
 
     private updateFormControl(id: string, field: DynamicFormSchemaField): void {
         const control = this.formGroup.get(id);
         control.setValidators(this.getValidators(field));
+
+        if (control.pristine && typeof field.defaultValue !== "undefined") {
+            control.setValue(field.defaultValue);
+        }
 
         if (field.readonly && control.enabled) {
             control.disable();

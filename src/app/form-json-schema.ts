@@ -114,6 +114,11 @@ export const FORM_JSON_SCHEMA = {
                                                                         title: "This field's description",
                                                                         default: ""
                                                                     },
+                                                                    defaultValue: {
+                                                                        $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/description",
+                                                                        title: "This field's default value",
+                                                                        default: ""
+                                                                    },
                                                                     placeholder: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/placeholder",
                                                                         type: "string",

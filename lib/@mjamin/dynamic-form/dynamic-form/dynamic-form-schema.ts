@@ -25,4 +25,5 @@ export interface DynamicFormSchemaField {
     readonly?: boolean;
     data?: any;
     config?: any;
+    defaultValue?: any;
 }
