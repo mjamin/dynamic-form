@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { MatCheckbox } from "@angular/material/checkbox";
 
-import { withSubscriptionSink } from "@mjamin/subscription-sink";
+import { withSubscriptionSink } from "@mjamin/common";
 
 @Directive({
     selector: "df-widget-checkbox-group",

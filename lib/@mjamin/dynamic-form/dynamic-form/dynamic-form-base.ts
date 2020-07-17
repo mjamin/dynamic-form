@@ -3,7 +3,7 @@ import { tap } from "rxjs/operators";
 import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive } from "@angular/core";
 import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
 
-import { withSubscriptionSink } from "@mjamin/subscription-sink";
+import { withSubscriptionSink } from "@mjamin/common";
 
 import { DynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";

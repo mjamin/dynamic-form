@@ -1,7 +1,7 @@
 import { Observable, Subscription } from "rxjs";
 import { OnDestroy } from "@angular/core";
 
-import { Constructor } from "./constructor";
+import { Constructor } from "../constructor";
 
 export interface HasSubscriptionSink extends OnDestroy {
     subscribe(observable: Observable<any>): void;
