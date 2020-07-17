@@ -1,5 +1,5 @@
 import { Subject, Observable, ReplaySubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { tap, distinctUntilChanged } from "rxjs/operators";
 import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive } from "@angular/core";
 import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
 
@@ -7,13 +7,12 @@ import { withSubscriptionSink } from "@mjamin/common";
 
 import { DynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
-import { DynamicFormEvent } from "./dynamic-form-event";
 import { DynamicFormSchema, DynamicFormSchemaTab, DynamicFormSchemaField } from "./dynamic-form-schema";
+import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent } from "./dynamic-form-event";
 
 @Directive()
 export abstract class DynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy {
     private _schemaSubject = new ReplaySubject<DynamicFormSchema>(1);
-    private _formEventSubject = new Subject<DynamicFormEvent>();
     private _controller: DynamicFormController;
     private _selectedTabId: string;
 
@@ -26,7 +25,18 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
 
-        this.subscribe(this.schema$.pipe(tap(schema => { this.updateFormGroup(schema); })));
+        this.subscribe(this.schema$.pipe(
+            tap(schema => {
+                this.updateFormGroup(schema);
+            })
+        ));
+
+        this.subscribe(this.formGroup.statusChanges.pipe(
+            distinctUntilChanged(),
+            tap(() => {
+                this.formEvents.emit(new FormStatusChangedEvent(this.formGroup));
+            })
+        ));
     }
 
     @Input()
@@ -43,7 +53,7 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this._schemaSubject.next(schema);
 
         if (emitEvent === true) {
-            this._formEventSubject.next(new DynamicFormEvent("update-schema"));
+            this.formEvents.emit(new FormSchemaChangedEvent(this.formGroup, schema));
         }
 
         this.markForCheck();
@@ -53,7 +63,7 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this.formGroup.setValue(values);
 
         if (emitEvent === true) {
-            this._formEventSubject.next(new DynamicFormEvent("update-values"));
+            this.formEvents.emit(new FormValueChangedEvent(this.formGroup));
         }
 
         this.markForCheck();
@@ -88,7 +98,6 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this._formEventSubject.complete();
         this._schemaSubject.complete();
         this._controller.detach();
     }
