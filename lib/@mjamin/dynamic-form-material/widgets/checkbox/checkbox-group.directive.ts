@@ -105,7 +105,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
 
     private updateCheckboxes(): void {
         this._checkboxes.forEach(checkbox => {
-            checkbox.checked = this._value.includes(checkbox.value);
+            checkbox.checked = Array.isArray(this._value) && this._value.includes(checkbox.value);
         });
     }
 }
