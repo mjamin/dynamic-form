@@ -6,8 +6,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AngularSplitModule } from "angular-split";
 import { MonacoEditorModule } from "ngx-monaco-editor";
 
-import { DynamicFormModule } from "@mjamin/dynamic-form";
-import { DynamicFormMaterialModule } from "@mjamin/dynamic-form-material";
+import { MjCommonModule } from "@mjamin/common";
+import { MjDynamicFormModule } from "@mjamin/dynamic-form";
+import { MjDynamicFormMaterialModule } from "@mjamin/dynamic-form-material";
 
 import { MONACO_EDITOR_CONFIG } from "./monaco-config";
 import { AppComponent } from "./app.component";
@@ -22,8 +23,9 @@ import { AppComponent } from "./app.component";
         ReactiveFormsModule,
         AngularSplitModule.forRoot(),
         MonacoEditorModule.forRoot(MONACO_EDITOR_CONFIG),
-        DynamicFormModule,
-        DynamicFormMaterialModule.forRoot()
+        MjCommonModule,
+        MjDynamicFormModule,
+        MjDynamicFormMaterialModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

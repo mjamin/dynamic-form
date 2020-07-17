@@ -23,4 +23,4 @@ import { DynamicFormWidgetContainerComponent } from "./dynamic-form-widget-conta
         ReactiveFormsModule
     ]
 })
-export class DynamicFormModule { }
+export class MjDynamicFormModule { }

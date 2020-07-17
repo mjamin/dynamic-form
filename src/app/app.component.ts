@@ -4,8 +4,8 @@ import { FormControl } from "@angular/forms";
 
 import { SplitComponent } from "angular-split";
 
-import { DynamicFormController } from "@mjamin/dynamic-form";
 import { withSubscriptionSink } from "@mjamin/common";
+import { MjDynamicFormController } from "@mjamin/dynamic-form";
 
 import { DEFAULT_FORM } from "./default-form";
 
@@ -20,7 +20,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
 
     editorFormControl = new FormControl(this.load("form-schema", DEFAULT_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
-    formController = new DynamicFormController();
+    formController = new MjDynamicFormController();
     hasErrors = false;
     splitData = this.load("angular-split", { gutterNum: 1, sizes: [38.2, 61.8] });
 

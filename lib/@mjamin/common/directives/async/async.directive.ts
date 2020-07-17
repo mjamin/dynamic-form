@@ -7,7 +7,7 @@ import { withSubscriptionSink } from "../../mixins/subscription-sink";
 @Directive({
     selector: "[mjAsync][mjAsyncOf]"
 })
-export class AsyncDirective extends withSubscriptionSink() implements OnInit {
+export class MjAsyncDirective extends withSubscriptionSink() implements OnInit {
     private _viewRef: EmbeddedViewRef<any>;
 
     @Input() mjAsyncOf: Observable<any>;

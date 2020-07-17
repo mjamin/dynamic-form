@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { DynamicFormModule, provideFormWidgets } from "@mjamin/dynamic-form";
+import { MjDynamicFormModule, provideFormWidgets } from "@mjamin/dynamic-form";
 
 import { CheckboxComponent } from "./widgets/checkbox/checkbox.component";
 import { CheckboxGroupDirective } from "./widgets/checkbox/checkbox-group.directive";
@@ -10,15 +10,15 @@ import { SelectComponent } from "./widgets/select/select.component";
 import { TextareaComponent } from "./widgets/textarea/textarea.component";
 import { TextComponent } from "./widgets/text/text.component";
 import { MaterialModule } from "./material.module";
-import { CardFormComponent } from "./forms/card-form.component";
-import { MatFormFieldControlModule } from "./shared/mat-form-field-control/mat-form-field-control.module";
+import { MjCardFormComponent } from "./forms/card-form.component";
+import { MjMatFormFieldControlModule } from "./shared/mat-form-field-control/mat-form-field-control.module";
 
 @NgModule({
     imports: [
         CommonModule,
-        DynamicFormModule,
         MaterialModule,
-        MatFormFieldControlModule
+        MjDynamicFormModule,
+        MjMatFormFieldControlModule
     ],
     declarations: [
         CheckboxComponent,
@@ -27,17 +27,17 @@ import { MatFormFieldControlModule } from "./shared/mat-form-field-control/mat-f
         SelectComponent,
         TextareaComponent,
         TextComponent,
-        CardFormComponent
+        MjCardFormComponent
     ],
     exports: [
-        MatFormFieldControlModule,
-        CardFormComponent
+        MjMatFormFieldControlModule,
+        MjCardFormComponent
     ]
 })
-export class DynamicFormMaterialModule {
-    static forRoot(): ModuleWithProviders<DynamicFormMaterialModule> {
+export class MjDynamicFormMaterialModule {
+    static forRoot(): ModuleWithProviders<MjDynamicFormMaterialModule> {
         return {
-            ngModule: DynamicFormMaterialModule,
+            ngModule: MjDynamicFormMaterialModule,
             providers: [
                 provideFormWidgets({
                     checkbox: CheckboxComponent,

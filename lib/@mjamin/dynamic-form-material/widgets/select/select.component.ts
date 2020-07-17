@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 
-import { DynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
+import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 
 @Component({
-    selector: "df-widget-select",
+    selector: "mj-dynamic-form-widget-select",
     templateUrl: "./select.component.html",
     viewProviders: [ provideControlContainer() ]
 })
-export class SelectComponent extends DynamicFormWidgetBase { }
+export class SelectComponent extends MjDynamicFormWidgetBase { }

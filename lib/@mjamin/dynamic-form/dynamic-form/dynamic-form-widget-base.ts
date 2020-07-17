@@ -1,13 +1,13 @@
 import { FormGroup, FormControl } from "@angular/forms";
 
-import { DynamicFormSchemaField } from "./dynamic-form-schema";
+import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 
-export abstract class DynamicFormWidgetBase {
+export abstract class MjDynamicFormWidgetBase {
     private _form: FormGroup;
     private _control: FormControl;
-    private _fieldAccessor: () => DynamicFormSchemaField;
+    private _fieldAccessor: () => MjDynamicFormSchemaField;
 
-    get field(): DynamicFormSchemaField {
+    get field(): MjDynamicFormSchemaField {
         return this._fieldAccessor();
     }
 
@@ -43,7 +43,7 @@ export abstract class DynamicFormWidgetBase {
     }
 
     /** @internal */
-    _setFieldAccessor(fieldAccessor: () => DynamicFormSchemaField): void {
+    _setFieldAccessor(fieldAccessor: () => MjDynamicFormSchemaField): void {
         this._fieldAccessor = fieldAccessor;
     }
 

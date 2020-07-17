@@ -1,20 +1,20 @@
-export interface DynamicFormSchema {
+export interface MjDynamicFormSchema {
     title?: string;
-    tabs: DynamicFormSchemaTab[];
+    tabs: MjDynamicFormSchemaTab[];
 }
 
-export interface DynamicFormSchemaTab {
+export interface MjDynamicFormSchemaTab {
     id: string;
     label?: string;
-    fieldsets: DynamicFormSchemaFieldset[];
+    fieldsets: MjDynamicFormSchemaFieldset[];
 }
 
-export interface DynamicFormSchemaFieldset {
+export interface MjDynamicFormSchemaFieldset {
     label?: string;
-    fields: DynamicFormSchemaField[];
+    fields: MjDynamicFormSchemaField[];
 }
 
-export interface DynamicFormSchemaField {
+export interface MjDynamicFormSchemaField {
     id: string;
     label: string;
     description?: string;

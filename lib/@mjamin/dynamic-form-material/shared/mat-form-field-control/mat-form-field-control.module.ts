@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 
-import { MatFormFieldControlDirective } from "./mat-form-field-control.directive";
+import { MjMatFormFieldControlDirective } from "./mat-form-field-control.directive";
 
 @NgModule({
     declarations: [
-        MatFormFieldControlDirective
+        MjMatFormFieldControlDirective
     ],
     exports: [
-        MatFormFieldControlDirective
+        MjMatFormFieldControlDirective
     ]
 })
-export class MatFormFieldControlModule { }
+export class MjMatFormFieldControlModule { }

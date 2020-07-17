@@ -2,14 +2,14 @@ import { Subscription, Observable, ReplaySubject } from "rxjs";
 import { tap } from "rxjs/operators";
 
 import { DynamicFormRef } from "./dynamic-form-ref";
-import { DynamicFormSchema } from "./dynamic-form-schema";
+import { MjDynamicFormSchema } from "./dynamic-form-schema";
 import { FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, DynamicFormEvent } from "./dynamic-form-event";
 
-export class DynamicFormController {
+export class MjDynamicFormController {
     private _attached: boolean;
     private _formRef: DynamicFormRef;
     private _formEventsSubscription: Subscription;
-    private _schema: DynamicFormSchema;
+    private _schema: MjDynamicFormSchema;
     private _values: {[key: string]: any};
     private _lastValid: boolean = null;
     private _validSubject = new ReplaySubject<boolean>(1);
@@ -26,7 +26,7 @@ export class DynamicFormController {
         }
     }
 
-    setSchema(schema: DynamicFormSchema): void {
+    setSchema(schema: MjDynamicFormSchema): void {
         this._schema = schema;
 
         if (this._attached) {

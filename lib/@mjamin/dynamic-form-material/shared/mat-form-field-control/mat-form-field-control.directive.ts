@@ -17,13 +17,13 @@ import { selectValueAccessor } from "./selectValueAccessor";
  * @todo empty
  */
 @Directive({
-    selector: "[matFormFieldControl]",
-    exportAs: "matFormFieldControl",
+    selector: "[mjMatFormFieldControl]",
+    exportAs: "mjMatFormFieldControl",
     providers: [
-        { provide: MatFormFieldControl, useExisting: MatFormFieldControlDirective }
+        { provide: MatFormFieldControl, useExisting: MjMatFormFieldControlDirective }
     ],
 })
-export class MatFormFieldControlDirective implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
+export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
     private static _uniqueId = 0;
 
     private _stateChangesSubject = new Subject<void>();
@@ -43,7 +43,7 @@ export class MatFormFieldControlDirective implements MatFormFieldControl<any>, O
     matFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
 
     @HostBinding()
-    id = `mat-form-field-control-${MatFormFieldControlDirective._uniqueId++}`;
+    id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
 
     @Input()
     errorStateMatcher: ErrorStateMatcher;
@@ -56,31 +56,31 @@ export class MatFormFieldControlDirective implements MatFormFieldControl<any>, O
     get disabled(): boolean { return this._disabled; }
     set disabled(value: boolean) { this._disabled = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlPlaceholder")
+    @Input("mjMatFormFieldControlPlaceholder")
     get placeholder(): string { return this._placeholder; }
     set placeholder(value: string) { this._placeholder = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlType")
+    @Input("mjMatFormFieldControlType")
     get controlType(): string { return this._controlType; }
     set controlType(value: string) { this._controlType = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlShouldLabelFloat")
+    @Input("mjMatFormFieldControlShouldLabelFloat")
     get shouldLabelFloat(): boolean { return this._shouldLabelFloat; }
     set shouldLabelFloat(value: boolean) { this._shouldLabelFloat = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlErrorState")
+    @Input("mjMatFormFieldControlErrorState")
     get errorState(): boolean { return this._errorState; }
     set errorState(value: boolean) { this._errorState = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlFocused")
+    @Input("mjMatFormFieldControlFocused")
     get focused(): boolean { return this._focused; }
     set focused(value: boolean) { this._focused = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlEmpty")
+    @Input("mjMatFormFieldControlEmpty")
     get empty(): boolean { return this._empty; }
     set empty(value: boolean) { this._empty = value; this._stateChangesSubject.next(); }
 
-    @Input("matFormFieldControlAutofilled")
+    @Input("mjMatFormFieldControlAutofilled")
     get autofilled(): boolean { return this._autofilled; }
     set autofilled(value: boolean) { this._autofilled = value; this._stateChangesSubject.next(); }
 

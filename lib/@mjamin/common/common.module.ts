@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 
-import { AsyncDirective } from "./directives/async/async.directive";
+import { MjAsyncDirective } from "./directives/async/async.directive";
 
 @NgModule({
     imports: [],
     exports: [
-        AsyncDirective
+        MjAsyncDirective
     ],
     declarations: [
-        AsyncDirective
+        MjAsyncDirective
     ]
 })
 export class MjCommonModule { }

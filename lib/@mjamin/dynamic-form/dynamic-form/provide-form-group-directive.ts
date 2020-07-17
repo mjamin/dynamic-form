@@ -1,9 +1,9 @@
 import { FormGroupDirective } from "@angular/forms";
 import { Provider, Type, Self } from "@angular/core";
 
-import { DynamicFormBase } from "./dynamic-form-base";
+import { MjDynamicFormBase } from "./dynamic-form-base";
 
-export function FORM_GROUP_DIRECTIVE_FACTORY(formComponent: DynamicFormBase): FormGroupDirective {
+export function FORM_GROUP_DIRECTIVE_FACTORY(formComponent: MjDynamicFormBase): FormGroupDirective {
     return formComponent.formGroupDirective;
 }
 

@@ -5,15 +5,15 @@ import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective } f
 
 import { withSubscriptionSink } from "@mjamin/common";
 
-import { DynamicFormController } from "./dynamic-form-controller";
+import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
-import { DynamicFormSchema, DynamicFormSchemaTab, DynamicFormSchemaField } from "./dynamic-form-schema";
 import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent } from "./dynamic-form-event";
+import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField } from "./dynamic-form-schema";
 
 @Directive()
-export abstract class DynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy {
-    private _schemaSubject = new ReplaySubject<DynamicFormSchema>(1);
-    private _controller: DynamicFormController;
+export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy {
+    private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
+    private _controller: MjDynamicFormController;
     private _selectedTabId: string;
 
     @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
@@ -40,16 +40,16 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
     }
 
     @Input()
-    get controller(): DynamicFormController { return this._controller; }
-    set controller(value: DynamicFormController) { this.setController(value); }
+    get controller(): MjDynamicFormController { return this._controller; }
+    set controller(value: MjDynamicFormController) { this.setController(value); }
 
-    get schema$(): Observable<DynamicFormSchema> { return this._schemaSubject.asObservable(); }
+    get schema$(): Observable<MjDynamicFormSchema> { return this._schemaSubject.asObservable(); }
 
     markForCheck(): void {
         this._cdr.markForCheck();
     }
 
-    setSchema(schema: DynamicFormSchema, emitEvent?: boolean): void {
+    setSchema(schema: MjDynamicFormSchema, emitEvent?: boolean): void {
         this._schemaSubject.next(schema);
 
         if (emitEvent === true) {
@@ -69,7 +69,7 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this.markForCheck();
     }
 
-    selectTab(tab: DynamicFormSchemaTab): void {
+    selectTab(tab: MjDynamicFormSchemaTab): void {
         if (this._selectedTabId === tab.id) {
             return;
         }
@@ -78,7 +78,7 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this.markForCheck();
     }
 
-    isSelectedTab(schema: DynamicFormSchema, tab: DynamicFormSchemaTab, index: number): boolean {
+    isSelectedTab(schema: MjDynamicFormSchema, tab: MjDynamicFormSchemaTab, index: number): boolean {
         if (this._selectedTabId === undefined && index === 0) {
             return true;
         }
@@ -102,16 +102,16 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this._controller.detach();
     }
 
-    private setController(controller: DynamicFormController): void {
+    private setController(controller: MjDynamicFormController): void {
         this._controller = controller;
         this._controller.attach(this);
     }
 
-    private updateFormGroup(schema: DynamicFormSchema): void {
+    private updateFormGroup(schema: MjDynamicFormSchema): void {
         const fields = (schema.tabs || [])
             .flatMap(t => t.fieldsets || [])
             .flatMap(fs => fs.fields || [])
-            .reduce((o, field) => { o[field.id] = field; return o; }, {}) as {[key: string]: DynamicFormSchemaField};
+            .reduce((o, field) => { o[field.id] = field; return o; }, {}) as {[key: string]: MjDynamicFormSchemaField};
 
         const fieldIds = Object.keys(fields);
 
@@ -128,11 +128,11 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         }
     }
 
-    private addFormControl(id: string, field: DynamicFormSchemaField): void {
+    private addFormControl(id: string, field: MjDynamicFormSchemaField): void {
         this.formGroup.addControl(id, new FormControl(field.defaultValue, this.getValidators(field)));
     }
 
-    private updateFormControl(id: string, field: DynamicFormSchemaField): void {
+    private updateFormControl(id: string, field: MjDynamicFormSchemaField): void {
         const control = this.formGroup.get(id);
         control.setValidators(this.getValidators(field));
 
@@ -153,7 +153,7 @@ export abstract class DynamicFormBase extends withSubscriptionSink() implements 
         this.formGroup.removeControl(id);
     }
 
-    private getValidators(field: DynamicFormSchemaField): ValidatorFn[] {
+    private getValidators(field: MjDynamicFormSchemaField): ValidatorFn[] {
         if (!field.validators) {
             return [];
         }

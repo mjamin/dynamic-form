@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 
-import { DynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
+import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 
 @Component({
-    selector: "df-widget-textarea",
+    selector: "mj-dynamic-form-widget-textarea",
     templateUrl: "./textarea.component.html",
     viewProviders: [ provideControlContainer() ]
 })
-export class TextareaComponent extends DynamicFormWidgetBase { }
+export class TextareaComponent extends MjDynamicFormWidgetBase { }

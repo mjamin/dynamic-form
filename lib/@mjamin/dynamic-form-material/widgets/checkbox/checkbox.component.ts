@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 
-import { DynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
+import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 
 @Component({
-    selector: "df-widget-checkbox",
+    selector: "mj-dynamic-form-widget-checkbox",
     templateUrl: "./checkbox.component.html",
     styleUrls: ["./checkbox.component.scss"],
     encapsulation: ViewEncapsulation.None,
@@ -12,7 +12,7 @@ import { DynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-
         "[class.single]": "!hasOptions"
     }
 })
-export class CheckboxComponent extends DynamicFormWidgetBase {
+export class CheckboxComponent extends MjDynamicFormWidgetBase {
     get hasOptions(): boolean {
         return !!this.field.config?.options;
     }

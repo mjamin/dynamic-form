@@ -1,4 +1,4 @@
-import { DynamicFormSchema } from "./dynamic-form-schema";
+import { MjDynamicFormSchema } from "./dynamic-form-schema";
 
 import { FormGroup } from "@angular/forms";
 
@@ -11,7 +11,7 @@ export class FormValueChangedEvent extends DynamicFormEvent {
 }
 
 export class FormSchemaChangedEvent extends DynamicFormEvent {
-    constructor(public form: FormGroup, public schema: DynamicFormSchema) { super(form); }
+    constructor(public form: FormGroup, public schema: MjDynamicFormSchema) { super(form); }
 }
 
 export class FormStatusChangedEvent extends DynamicFormEvent {

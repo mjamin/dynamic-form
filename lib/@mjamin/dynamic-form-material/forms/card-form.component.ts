@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, forwardRef } from "@angular/core";
 
-import { DynamicFormBase, provideFormGroupDirective } from "@mjamin/dynamic-form";
+import { MjDynamicFormBase, provideFormGroupDirective } from "@mjamin/dynamic-form";
 
 @Component({
-    selector: "df-mat-card-form",
+    selector: "mj-dynamic-card-form",
     templateUrl: "./card-form.component.html",
     styleUrls: ["./card-form.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ provideFormGroupDirective(forwardRef(() => CardFormComponent)) ]
+    providers: [ provideFormGroupDirective(forwardRef(() => MjCardFormComponent)) ]
 })
-export class CardFormComponent extends DynamicFormBase { }
+export class MjCardFormComponent extends MjDynamicFormBase { }

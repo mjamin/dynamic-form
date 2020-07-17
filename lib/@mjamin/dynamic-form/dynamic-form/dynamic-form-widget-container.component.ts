@@ -3,8 +3,8 @@ import { FormGroup } from "@angular/forms";
 import { CdkPortalOutlet } from "@angular/cdk/portal";
 
 import { NamedPortalService, NamedPortalServiceContext } from "../core/named-portals";
-import { DynamicFormSchemaField } from "./dynamic-form-schema";
-import { DynamicFormWidgetBase } from "./dynamic-form-widget-base";
+import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
+import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 
 @Component({
     selector: "df-widget-container",
@@ -12,12 +12,12 @@ import { DynamicFormWidgetBase } from "./dynamic-form-widget-base";
 })
 export class DynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
-    private _componentRef: ComponentRef<DynamicFormWidgetBase>;
+    private _componentRef: ComponentRef<MjDynamicFormWidgetBase>;
     private _fieldType: string;
 
     @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
 
-    @Input() field: DynamicFormSchemaField;
+    @Input() field: MjDynamicFormSchemaField;
     @Input() form: FormGroup;
 
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
