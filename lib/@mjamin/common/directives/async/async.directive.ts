@@ -12,7 +12,7 @@ export class MjAsyncDirective extends withSubscriptionSink() implements OnInit {
 
     @Input() mjAsyncOf: Observable<any>;
 
-    constructor(private _viewContainerRef: ViewContainerRef, private _templateRef: TemplateRef<any>) { super(); }
+    constructor(private _viewContainerRef: ViewContainerRef, private _templateRef: TemplateRef<{ $implicit: any }>) { super(); }
 
     ngOnInit(): void {
         this.subscribe(this.mjAsyncOf.pipe(
