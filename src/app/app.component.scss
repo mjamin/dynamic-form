@@ -12,6 +12,7 @@
 #form-area {
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     #form-area-form-container {
         position: relative;
@@ -31,14 +32,21 @@
                 z-index: 10000;
             }
         }
-    }
 
-    mj-dynamic-form, mj-dynamic-card-form {
-        padding: 24px;
+        mj-dynamic-form, mj-dynamic-card-form {
+            padding: 24px;
 
-        form {
+            form {
+                max-width: 960px;
+                margin: 0 auto;
+            }
+        }
+
+        pre {
+            display: block;
             max-width: 960px;
             margin: 0 auto;
+            font-size: 12px;
         }
     }
 

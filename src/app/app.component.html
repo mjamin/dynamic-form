@@ -15,6 +15,7 @@
         </mat-toolbar>
         <div id="form-area-form-container" [class.disabled]="hasErrors">
             <mj-dynamic-card-form [controller]="formController" ></mj-dynamic-card-form>
+            <pre>{{formController.values | async | json}}</pre>
         </div>
     </as-split-area>
 </as-split>
