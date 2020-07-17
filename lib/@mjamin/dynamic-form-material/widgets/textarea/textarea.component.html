@@ -1,4 +1,4 @@
-<mat-form-field class="mat-form-field-full-width" appearance="outline" floatLabel="always">
+<mat-form-field class="mat-form-field-full-width" [appearance]="field.config?.appearance || 'outline'" [floatLabel]="field.config?.floatLabel || 'always'">
     <mat-label>{{field.label}}</mat-label>
     <textarea matInput [formControlName]="field.id" [required]="required" placeholder="Some more text"></textarea>
     <mat-error *ngIf="control.invalid">{{error}}</mat-error>
