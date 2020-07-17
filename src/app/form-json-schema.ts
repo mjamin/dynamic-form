@@ -135,7 +135,7 @@ export const FORM_JSON_SCHEMA = {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/readonly",
                                                                         type: "boolean",
                                                                         title: "Specifies wether or not this field is readonly",
-                                                                        default: ""
+                                                                        default: false
                                                                     },
                                                                     type: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/type",
@@ -148,13 +148,13 @@ export const FORM_JSON_SCHEMA = {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/data",
                                                                         type: "object",
                                                                         title: "Additional field specific data",
-                                                                        default: ""
+                                                                        default: {}
                                                                     },
                                                                     config: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/config",
                                                                         type: "object",
                                                                         title: "This field's configuration data",
-                                                                        default: ""
+                                                                        default: {}
                                                                     },
                                                                     validators: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/validators",
