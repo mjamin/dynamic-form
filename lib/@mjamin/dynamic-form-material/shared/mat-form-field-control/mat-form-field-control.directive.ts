@@ -21,7 +21,7 @@ import { selectValueAccessor } from "./selectValueAccessor";
     exportAs: "mjMatFormFieldControl",
     providers: [
         { provide: MatFormFieldControl, useExisting: MjMatFormFieldControlDirective }
-    ],
+    ]
 })
 export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
     private static _uniqueId = 0;
@@ -145,6 +145,8 @@ export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>,
         if (this._changesSubscription) {
             this._changesSubscription.unsubscribe();
         }
+
+        this._stateChangesSubject.complete();
     }
 
     ngDoCheck(): void {
