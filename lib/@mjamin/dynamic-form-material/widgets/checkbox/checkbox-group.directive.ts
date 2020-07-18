@@ -19,7 +19,8 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     private _onChange: (value: any) => any = () => {};
     private _onTouched: () => any = () => {};
 
-    @ContentChildren(MatCheckbox, { descendants: true }) _checkboxes: QueryList<MatCheckbox>;
+    // tslint:disable-next-line: member-ordering
+    @ContentChildren(MatCheckbox, { descendants: true }) checkboxes: QueryList<MatCheckbox>;
 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
@@ -51,8 +52,8 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     }
 
     ngAfterContentInit(): void {
-        const checkboxes$ = this._checkboxes.changes.pipe(
-            startWith(this._checkboxes),
+        const checkboxes$ = this.checkboxes.changes.pipe(
+            startWith(this.checkboxes),
             map((queryList: QueryList<MatCheckbox>) => queryList.toArray())
         );
 
@@ -96,7 +97,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     private setDisabled(value: boolean): void {
         this._disabled = coerceBooleanProperty(value);
 
-        this._checkboxes.forEach(checkbox => {
+        this.checkboxes.forEach(checkbox => {
             checkbox.disabled = value;
         });
 
@@ -104,7 +105,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     }
 
     private updateCheckboxes(): void {
-        this._checkboxes.forEach(checkbox => {
+        this.checkboxes.forEach(checkbox => {
             checkbox.checked = Array.isArray(this._value) && this._value.includes(checkbox.value);
         });
     }
