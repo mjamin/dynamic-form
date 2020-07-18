@@ -6,7 +6,6 @@ import { FocusMonitor } from "@angular/cdk/a11y";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MatFormFieldControl } from "@angular/material/form-field";
 
-import { selectValueAccessor } from "./selectValueAccessor";
 
 /**
  * Directive that automatically provides a MatFormFieldControl around any ControlValueAccessor,
@@ -97,17 +96,12 @@ export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>,
         private _focusMonitor: FocusMonitor,
         @Optional() private _parentForm: NgForm,
         @Optional() private _parentFormGroup: FormGroupDirective,
-        @Optional() @Self() public ngControl: NgControl,
-        @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[]
+        @Optional() @Self() public ngControl: NgControl
     ) {
         this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             this.focused = !!focusOrigin;
             this._stateChangesSubject.next();
         });
-
-        if (this.ngControl) {
-            this.ngControl.valueAccessor = selectValueAccessor(this.ngControl, valueAccessors);
-        }
     }
 
     setDescribedByIds(ids: string[]): void {
