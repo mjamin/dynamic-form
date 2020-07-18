@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { PortalModule } from "@angular/cdk/portal";
 
 import { DynamicFormComponent } from "./dynamic-form.component";
-import { DynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
+import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
 @NgModule({
     imports: [
@@ -15,11 +15,11 @@ import { DynamicFormWidgetContainerComponent } from "./dynamic-form-widget-conta
     ],
     declarations: [
         DynamicFormComponent,
-        DynamicFormWidgetContainerComponent
+        MjDynamicFormWidgetContainerComponent
     ],
     exports: [
         DynamicFormComponent,
-        DynamicFormWidgetContainerComponent,
+        MjDynamicFormWidgetContainerComponent,
         ReactiveFormsModule
     ]
 })

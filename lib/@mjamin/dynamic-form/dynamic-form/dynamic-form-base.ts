@@ -8,7 +8,7 @@ import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent } from "./dynamic-form-event";
 import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField } from "./dynamic-form-schema";
-import { DynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
+import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
 @Directive()
 export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy, AfterViewInit {
@@ -19,7 +19,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
 
-    @ViewChildren(DynamicFormWidgetContainerComponent) widgetContainers = new QueryList<DynamicFormWidgetContainerComponent>();
+    @ViewChildren(MjDynamicFormWidgetContainerComponent) widgetContainers = new QueryList<MjDynamicFormWidgetContainerComponent>();
 
     @Output() formEvents = new EventEmitter<DynamicFormEvent>();
 
@@ -112,7 +112,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     ngAfterViewInit(): void {
         this.subscribe(this.widgetContainers.changes.pipe(
             startWith(this.widgetContainers),
-            tap((widgetContainers: QueryList<DynamicFormWidgetContainerComponent>) => {
+            tap((widgetContainers: QueryList<MjDynamicFormWidgetContainerComponent>) => {
                 for (const c of widgetContainers) {
                     this._rawValidators[c.field.id] = c.rawValidator;
                 }

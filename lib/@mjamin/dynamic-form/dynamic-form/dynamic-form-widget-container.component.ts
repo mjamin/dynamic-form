@@ -11,7 +11,7 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
     template: `<ng-template cdkPortalOutlet></ng-template>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormWidgetContainerComponent implements DoCheck {
+export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
     private _componentRef: ComponentRef<MjDynamicFormWidgetBase>;
     private _fieldType: string;
