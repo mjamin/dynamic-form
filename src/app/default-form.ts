@@ -6,11 +6,13 @@ export const DEFAULT_FORM = JSON.stringify({
             label: "First Tab",
             fieldsets: [
                 {
+                    id: "fieldset-1",
                     label: "Personal information",
                     fields: [
                         {
                             id: "firstname",
                             label: "First name",
+                            placeholder: "John",
                             type: "text",
                             validators: {
                                 required: true,
@@ -23,6 +25,7 @@ export const DEFAULT_FORM = JSON.stringify({
                             id: "lastname",
                             label: "Last name",
                             type: "text",
+                            placeholder: "Doe",
                             validators: {
                                 required: true,
                                 minlength: {
@@ -34,11 +37,12 @@ export const DEFAULT_FORM = JSON.stringify({
                             id: "about",
                             label: "About me",
                             type: "textarea",
-                            hint: "Who are you? What are you about?"
+                            placeholder: "I like turtles."
                         }
                     ]
                 },
                 {
+                    id: "fieldset-2",
                     label: "Preferences",
                     fields: [
                         {
@@ -52,15 +56,15 @@ export const DEFAULT_FORM = JSON.stringify({
                             config: {
                                 options: [
                                     {
-                                        label: "Option 1",
+                                        label: "A",
                                         value: 1
                                     },
                                     {
-                                        label: "Option 2",
+                                        label: "B",
                                         value: 2
                                     },
                                     {
-                                        label: "Option 3",
+                                        label: "C",
                                         value: 3
                                     }
                                 ]
@@ -76,15 +80,15 @@ export const DEFAULT_FORM = JSON.stringify({
                             config: {
                                 options: [
                                     {
-                                        label: "Option 1",
+                                        label: "One",
                                         value: 1
                                     },
                                     {
-                                        label: "Option 2",
+                                        label: "Two",
                                         value: 2
                                     },
                                     {
-                                        label: "Option 3",
+                                        label: "Three",
                                         value: 3
                                     }
                                 ]
@@ -94,20 +98,16 @@ export const DEFAULT_FORM = JSON.stringify({
                             id: "select",
                             label: "A select",
                             type: "select",
-                            defaultValue: 3,
+                            defaultValue: 2,
                             config: {
                                 options: [
                                     {
-                                        label: "Option 1",
+                                        label: "A non-default select option",
                                         value: 1
                                     },
                                     {
-                                        label: "Option 2",
+                                        label: "A default select option",
                                         value: 2
-                                    },
-                                    {
-                                        label: "Option 3",
-                                        value: 3
                                     }
                                 ]
                             }
@@ -121,24 +121,26 @@ export const DEFAULT_FORM = JSON.stringify({
             label: "Second Tab",
             fieldsets: [
                 {
+                    id: "fieldset-3",
                     label: "More checkboxes",
                     fields: [
                         {
                             id: "checkbox-2",
-                            label: "Checkbox No. 2",
+                            label: "Another checkbox group",
                             type: "checkbox",
                             config: {
+                                optionColumns: 1,
                                 options: [
                                     {
-                                        label: "Option 1",
+                                        label: "Vertical option 1",
                                         value: 1
                                     },
                                     {
-                                        label: "Option 2",
+                                        label: "Vertical option 2",
                                         value: 2
                                     },
                                     {
-                                        label: "Option 3",
+                                        label: "Vertical option 3",
                                         value: 3
                                     }
                                 ]
@@ -146,7 +148,8 @@ export const DEFAULT_FORM = JSON.stringify({
                         },
                         {
                             id: "checkbox-3",
-                            label: "I totally agree to everything in the Terms and Conditions that I have not read.",
+                            label: "I have acknowledged that this checkbox has a simplified json definition and is centered vertically within this label-less box.",
+                            hint: "It also has a non-standard required marker!",
                             type: "checkbox",
                             validators: {
                                 required: true
