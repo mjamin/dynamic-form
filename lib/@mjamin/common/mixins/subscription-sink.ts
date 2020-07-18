@@ -10,7 +10,7 @@ export interface HasSubscriptionSink extends OnDestroy {
 export type HasSubscriptionSinkCtor = Constructor<HasSubscriptionSink>;
 
 export function withSubscriptionSink<T extends Constructor<{}>>(base: T = class {} as T): HasSubscriptionSinkCtor & T {
-    return class extends base implements OnDestroy {
+    return class extends base implements HasSubscriptionSink {
         private _subscriptions: Subscription[] = [];
 
         subscribe(observable: Observable<any>): void {
