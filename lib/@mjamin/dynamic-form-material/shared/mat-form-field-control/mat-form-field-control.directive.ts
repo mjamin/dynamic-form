@@ -3,6 +3,7 @@ import { tap, startWith } from "rxjs/operators";
 import { Directive, OnDestroy, Optional, Self, ElementRef, HostBinding, Input, Output, EventEmitter, Inject, OnInit, DoCheck } from "@angular/core";
 import { NgControl, ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NgForm, FormGroupDirective } from "@angular/forms";
 import { FocusMonitor } from "@angular/cdk/a11y";
+import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MatFormFieldControl } from "@angular/material/form-field";
 
@@ -49,11 +50,11 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
     @Input()
     get required(): boolean { return this._required; }
-    set required(value: boolean) { this._required = value; this._stateChangesSubject.next(); }
+    set required(value: boolean) { this._required = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input()
     get disabled(): boolean { return this._disabled; }
-    set disabled(value: boolean) { this._disabled = value; this._stateChangesSubject.next(); }
+    set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input("mjMatFormFieldControlPlaceholder")
     get placeholder(): string { return this._placeholder; }
@@ -65,23 +66,23 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
     @Input("mjMatFormFieldControlShouldLabelFloat")
     get shouldLabelFloat(): boolean { return this._shouldLabelFloat; }
-    set shouldLabelFloat(value: boolean) { this._shouldLabelFloat = value; this._stateChangesSubject.next(); }
+    set shouldLabelFloat(value: boolean) { this._shouldLabelFloat = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input("mjMatFormFieldControlErrorState")
     get errorState(): boolean { return this._errorState; }
-    set errorState(value: boolean) { this._errorState = value; this._stateChangesSubject.next(); }
+    set errorState(value: boolean) { this._errorState = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input("mjMatFormFieldControlFocused")
     get focused(): boolean { return this._focused; }
-    set focused(value: boolean) { this._focused = value; this._stateChangesSubject.next(); }
+    set focused(value: boolean) { this._focused = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input("mjMatFormFieldControlEmpty")
     get empty(): boolean { return this._empty; }
-    set empty(value: boolean) { this._empty = value; this._stateChangesSubject.next(); }
+    set empty(value: boolean) { this._empty = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @Input("mjMatFormFieldControlAutofilled")
     get autofilled(): boolean { return this._autofilled; }
-    set autofilled(value: boolean) { this._autofilled = value; this._stateChangesSubject.next(); }
+    set autofilled(value: boolean) { this._autofilled = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
     @HostBinding("attr.aria-describedby")
     get describedBy(): string { return this._describedBy; }
