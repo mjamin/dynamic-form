@@ -25,10 +25,4 @@ mj-dynamic-form-widget-checkbox {
     .required-marker {
         color: rgba(0, 0, 0, 0.6);
     }
-
-    &.single {
-        .mat-form-field-infix {
-            border-top-width: 0.325em;
-        }
-    }
 }

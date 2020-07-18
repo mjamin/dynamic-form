@@ -73,3 +73,19 @@ mj-dynamic-form {
         }
     }
 }
+
+.mj-dynamic-form-widget {
+    &.mj-dynamic-form-widget-no-label {
+        .mat-form-field-appearance-fill {
+            .mat-form-field-infix {
+                border-top-width: 0;
+            }
+        }
+
+        .mat-form-field-appearance-outline {
+            .mat-form-field-infix {
+                border-top-width: .25em;
+            }
+        }
+    }
+}

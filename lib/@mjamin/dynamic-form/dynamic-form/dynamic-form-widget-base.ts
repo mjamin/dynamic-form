@@ -11,6 +11,10 @@ export abstract class MjDynamicFormWidgetBase {
 
     @ViewChild(FormControlName, { static: false }) formControlName: FormControlName;
 
+    get labelVisible(): boolean {
+        return !!this.field.label;
+    }
+
     get field(): MjDynamicFormSchemaField {
         return this._fieldAccessor();
     }

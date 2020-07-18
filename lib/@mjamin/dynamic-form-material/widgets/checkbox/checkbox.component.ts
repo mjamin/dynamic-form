@@ -12,12 +12,13 @@ import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynami
     templateUrl: "./checkbox.component.html",
     styleUrls: ["./checkbox.component.scss"],
     encapsulation: ViewEncapsulation.None,
-    viewProviders: [ provideControlContainer() ],
-    host: {
-        "[class.single]": "!hasOptions"
-    }
+    viewProviders: [ provideControlContainer() ]
 })
 export class CheckboxComponent extends MjDynamicFormWidgetBase {
+    get labelVisible(): boolean {
+        return super.labelVisible && this.hasOptions;
+    }
+
     get optionWidth(): number {
         if (!this.field.config?.optionColumns) {
             return null;

@@ -15,6 +15,7 @@ export class DynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
     private _componentRef: ComponentRef<MjDynamicFormWidgetBase>;
     private _fieldType: string;
+    private _fieldLabel: string;
 
     @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
 
@@ -37,6 +38,18 @@ export class DynamicFormWidgetContainerComponent implements DoCheck {
         if (this._fieldType !== this.field.type) {
             this.updateComponentPortal();
         }
+
+        if (this._fieldLabel !== this.field.label) {
+            this._fieldLabel = this.field.label;
+
+            if (this._componentRef && this._componentRef.location) {
+                if (this._componentRef.instance && !this._componentRef.instance.labelVisible) {
+                    this._componentRef.location.nativeElement.classList.add("mj-dynamic-form-widget-no-label");
+                } else {
+                    this._componentRef.location.nativeElement.classList.remove("mj-dynamic-form-widget-no-label");
+                }
+            }
+        }
     }
 
     private updateComponentPortal(): void {
@@ -49,6 +62,7 @@ export class DynamicFormWidgetContainerComponent implements DoCheck {
             return;
         }
 
+        this._componentRef.location.nativeElement.classList.add("mj-dynamic-form-widget");
         this._componentRef.instance._setFieldAccessor(() => this.field);
         this._componentRef.instance._setForm(this.form);
         this._fieldType = this.field.type;
