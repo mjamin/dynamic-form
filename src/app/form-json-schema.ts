@@ -6,7 +6,6 @@ export const FORM_JSON_SCHEMA = {
     description: "The root schema comprises the entire JSON document.",
     default: {},
     required: [
-        "label",
         "tabs"
     ],
     additionalProperties: true,
@@ -32,7 +31,6 @@ export const FORM_JSON_SCHEMA = {
                         default: {},
                         required: [
                             "id",
-                            "label",
                             "fieldsets"
                         ],
                         additionalProperties: true,
@@ -64,7 +62,7 @@ export const FORM_JSON_SCHEMA = {
                                             title: "A form fieldsets",
                                             default: {},
                                             required: [
-                                                "label",
+                                                "id",
                                                 "fields"
                                             ],
                                             additionalProperties: true,
@@ -90,7 +88,6 @@ export const FORM_JSON_SCHEMA = {
                                                                 default: {},
                                                                 required: [
                                                                     "id",
-                                                                    "label",
                                                                     "type"
                                                                 ],
                                                                 additionalProperties: true,
