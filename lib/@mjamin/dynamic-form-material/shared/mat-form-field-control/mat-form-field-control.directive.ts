@@ -6,6 +6,7 @@ import { FocusMonitor } from "@angular/cdk/a11y";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MatFormFieldControl } from "@angular/material/form-field";
 
+import { withSubscriptionSink } from "@mjamin/common";
 
 /**
  * Directive that automatically provides a MatFormFieldControl around any ControlValueAccessor,
@@ -22,11 +23,10 @@ import { MatFormFieldControl } from "@angular/material/form-field";
         { provide: MatFormFieldControl, useExisting: MjMatFormFieldControlDirective }
     ]
 })
-export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
+export class MjMatFormFieldControlDirective extends withSubscriptionSink() implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
     private static _uniqueId = 0;
 
     private _stateChangesSubject = new Subject<void>();
-    private _changesSubscription: Subscription;
     private _placeholder: string;
     private _required: boolean;
     private _controlType: string;
@@ -98,6 +98,8 @@ export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>,
         @Optional() private _parentFormGroup: FormGroupDirective,
         @Optional() @Self() public ngControl: NgControl
     ) {
+        super();
+
         this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             this.focused = !!focusOrigin;
             this._stateChangesSubject.next();
@@ -125,21 +127,16 @@ export class MjMatFormFieldControlDirective implements MatFormFieldControl<any>,
                 })
             );
 
-            this._changesSubscription = merge(valueChanges$, statusChanges$).pipe(
+            this.subscribe(merge(valueChanges$, statusChanges$).pipe(
                 tap(() => {
                     this._stateChangesSubject.next();
                 })
-            ).subscribe();
+            ));
         }
     }
 
     ngOnDestroy(): void {
         this._focusMonitor.stopMonitoring(this._elementRef);
-
-        if (this._changesSubscription) {
-            this._changesSubscription.unsubscribe();
-        }
-
         this._stateChangesSubject.complete();
     }
 
