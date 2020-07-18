@@ -116,7 +116,11 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
     ngOnInit(): void {
         if (this.ngControl.control) {
-            const valueChanges$ = this.ngControl.valueChanges;
+            const valueChanges$ = this.ngControl.valueChanges.pipe(
+                tap(value => {
+                    this.empty = value == null || value.length === 0;
+                })
+            );
 
             const statusChanges$ = this.ngControl.statusChanges.pipe(
                 startWith(this.ngControl.status),
