@@ -7,7 +7,7 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { withSubscriptionSink } from "@mjamin/common";
 
 @Directive({
-    selector: "df-widget-checkbox-group",
+    selector: "mj-dynamic-form-widget-checkbox-group",
     exportAs: "dfCheckboxGroup",
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: CheckboxGroupDirective, multi: true }
