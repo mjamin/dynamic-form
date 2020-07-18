@@ -1,7 +1,7 @@
-import { Observable, Subject, Subscription, merge } from "rxjs";
+import { Observable, Subject, merge } from "rxjs";
 import { tap, startWith } from "rxjs/operators";
-import { Directive, OnDestroy, Optional, Self, ElementRef, HostBinding, Input, Output, EventEmitter, Inject, OnInit, DoCheck } from "@angular/core";
-import { NgControl, ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NgForm, FormGroupDirective } from "@angular/forms";
+import { Directive, OnDestroy, Optional, Self, ElementRef, HostBinding, Input, Output, EventEmitter, OnInit, DoCheck } from "@angular/core";
+import { NgControl, FormControl, NgForm, FormGroupDirective } from "@angular/forms";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ErrorStateMatcher } from "@angular/material/core";
@@ -40,7 +40,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
     private _describedBy: string;
 
     @Output()
-    matFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
+    mjMatFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
 
     @HostBinding()
     id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
@@ -112,7 +112,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
     }
 
     onContainerClick(event: MouseEvent): void {
-        this.matFormFieldControlContainerClick.emit(event);
+        this.mjMatFormFieldControlContainerClick.emit(event);
     }
 
     ngOnInit(): void {
