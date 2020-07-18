@@ -8,4 +8,12 @@ import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynami
     styleUrls: [ "./radio.component.scss" ],
     viewProviders: [ provideControlContainer() ]
 })
-export class RadioComponent extends MjDynamicFormWidgetBase { }
+export class RadioComponent extends MjDynamicFormWidgetBase {
+    get optionWidth(): number {
+        if (!this.field.config?.optionColumns) {
+            return null;
+        }
+
+        return 1 / this.field.config?.optionColumns * 100;
+    }
+}

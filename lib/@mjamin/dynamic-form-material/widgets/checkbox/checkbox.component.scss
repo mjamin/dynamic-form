@@ -1,8 +1,27 @@
-mj-dynamic-form-widget-checkbox {
-    .mat-checkbox ~ .mat-checkbox {
-        margin-left: 16px;
-    }
+mj-dynamic-form-widget-checkbox-group {
+    display: flex;
+    flex-flow: row wrap;
+    margin: -8px;
 
+    > .mat-checkbox {
+        margin: 0;
+        padding: 8px;
+        flex: 0 0 auto;
+        box-sizing: border-box;
+        min-width: 0;
+
+        label {
+            max-width: 100%;
+
+            .mat-checkbox-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+
+mj-dynamic-form-widget-checkbox {
     .required-marker {
         color: rgba(0, 0, 0, 0.6);
     }

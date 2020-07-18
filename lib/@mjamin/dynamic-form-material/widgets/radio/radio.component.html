@@ -1,7 +1,7 @@
 <mat-form-field class="mat-form-field-full-width" [appearance]="field.config?.appearance || 'outline'" [floatLabel]="field.config?.floatLabel || 'always'" [hideRequiredMarker]="!field.label">
     <mat-label>{{field.label}}</mat-label>
     <mat-radio-group mjMatFormFieldControl [formControlName]="field.id" [required]="required" aria-label="Select an option">
-        <mat-radio-button *ngFor="let o of field.config?.options" [value]="o.value">{{ o.label }}</mat-radio-button>
+        <mat-radio-button *ngFor="let o of field.config?.options" [value]="o.value" [style.flex-basis.%]="optionWidth">{{ o.label }}</mat-radio-button>
     </mat-radio-group>
     <mat-error *ngIf="control.invalid">{{error}}</mat-error>
     <mat-hint *ngIf="field.hint">{{field.hint}}</mat-hint>
