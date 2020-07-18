@@ -14,6 +14,7 @@ import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField }
 export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy {
     private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
     private _controller: MjDynamicFormController;
+    private _schema: MjDynamicFormSchema;
     private _selectedTabId: string;
 
     @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
@@ -24,12 +25,6 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
-
-        this.subscribe(this.schema$.pipe(
-            tap(schema => {
-                this.updateFormGroup(schema);
-            })
-        ));
 
         this.subscribe(this.formGroup.statusChanges.pipe(
             distinctUntilChanged(),
@@ -50,14 +45,18 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     get controller(): MjDynamicFormController { return this._controller; }
     set controller(value: MjDynamicFormController) { this.setController(value); }
 
-    get schema$(): Observable<MjDynamicFormSchema> { return this._schemaSubject.asObservable(); }
+    @Input()
+    get schema(): MjDynamicFormSchema { return this._schema; }
+    set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
 
     markForCheck(): void {
         this._cdr.markForCheck();
     }
 
-    setSchema(schema: MjDynamicFormSchema, emitEvent?: boolean): void {
-        this._schemaSubject.next(schema);
+    setSchema(schema: MjDynamicFormSchema, emitEvent: boolean = true): void {
+        this._schema = schema;
+
+        this.updateFormGroup(schema);
 
         if (emitEvent === true) {
             this.formEvents.emit(new FormSchemaChangedEvent(this.formGroup, schema));
@@ -66,7 +65,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck();
     }
 
-    setValues(values: {[key: string]: any}, emitEvent?: boolean): void {
+    setValues(values: {[key: string]: any}, emitEvent: boolean = true): void {
         this.formGroup.setValue(values);
 
         if (emitEvent === true) {
@@ -105,8 +104,19 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this._schemaSubject.complete();
         this._controller.detach();
+    }
+
+    trackByIdFn(_: number, item: any): any {
+        return item.id || item;
+    }
+
+    trackByIdAndTypeFn(_: number, item: any): any {
+        if (item.id && item.type) {
+            return `${item.id}-${item.type}`;
+        }
+
+        return item.id || item;
     }
 
     private setController(controller: MjDynamicFormController): void {
