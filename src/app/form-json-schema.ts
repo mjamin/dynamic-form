@@ -170,6 +170,13 @@ export const FORM_JSON_SCHEMA = {
                                                                                 description: "Marks this field as required.",
                                                                                 default: false
                                                                             },
+                                                                            requiredTrue: {
+                                                                                $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/validators/properties/requiredTrue",
+                                                                                type: "boolean",
+                                                                                title: "The 'requiredTrue' validator",
+                                                                                description: "Validates that this form field's value equals true.",
+                                                                                default: false
+                                                                            },
                                                                             minlength: {
                                                                                 $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/validators/properties/minlength",
                                                                                 type: "object",

@@ -199,6 +199,9 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
                 case "required":
                     if (field.validators.required === true) { validators.push(Validators.required); }
                     break;
+                case "requiredTrue":
+                    if (field.validators.requiredTrue === true) { validators.push(Validators.requiredTrue); }
+                    break;
                 case "minlength":
                     validators.push(Validators.minLength((field.validators[name] as any).length || 0));
                     break;
