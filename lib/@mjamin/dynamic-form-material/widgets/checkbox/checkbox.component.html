@@ -1,4 +1,4 @@
-<mat-form-field class="mat-form-field-full-width" [appearance]="field.config?.appearance || 'outline'" [floatLabel]="field.config?.floatLabel || 'always'" [hideRequiredMarker]="!hasOptions">
+<mat-form-field class="mat-form-field-full-width" [appearance]="field.config?.appearance || 'outline'" [floatLabel]="field.config?.floatLabel || 'always'" [hideRequiredMarker]="!hasOptions || !field.label">
     <mat-label *ngIf="hasOptions">{{field.label}}</mat-label>
     <mj-dynamic-form-widget-checkbox-group *ngIf="hasOptions" mjMatFormFieldControl [formControlName]="field.id" [required]="required">
         <mat-checkbox *ngFor="let o of field.config.options" [value]="o.value">{{o.label}}</mat-checkbox>
