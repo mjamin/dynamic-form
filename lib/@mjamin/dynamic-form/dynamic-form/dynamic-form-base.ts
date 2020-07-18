@@ -1,7 +1,6 @@
-import { Subject, Observable, ReplaySubject } from "rxjs";
-import { tap, distinctUntilChanged } from "rxjs/operators";
-import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive } from "@angular/core";
-import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
+import { tap, distinctUntilChanged, startWith } from "rxjs/operators";
+import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
+import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective, FormControlName } from "@angular/forms";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
@@ -9,15 +8,18 @@ import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent } from "./dynamic-form-event";
 import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField } from "./dynamic-form-schema";
+import { DynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
 @Directive()
-export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy {
-    private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
+export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy, AfterViewInit {
     private _controller: MjDynamicFormController;
     private _schema: MjDynamicFormSchema;
     private _selectedTabId: string;
+    private _rawValidators: {[key: string]: ValidatorFn } = {};
 
     @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
+
+    @ViewChildren(DynamicFormWidgetContainerComponent) widgetContainers = new QueryList<DynamicFormWidgetContainerComponent>();
 
     @Output() formEvents = new EventEmitter<DynamicFormEvent>();
 
@@ -107,6 +109,17 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this._controller.detach();
     }
 
+    ngAfterViewInit(): void {
+        this.subscribe(this.widgetContainers.changes.pipe(
+            startWith(this.widgetContainers),
+            tap((widgetContainers: QueryList<DynamicFormWidgetContainerComponent>) => {
+                for (const c of widgetContainers) {
+                    this._rawValidators[c.field.id] = c.rawValidator;
+                }
+            })
+        ));
+    }
+
     trackByIdFn(_: number, item: any): any {
         return item.id || item;
     }
@@ -131,27 +144,31 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
             .reduce((o, field) => { o[field.id] = field; return o; }, {}) as {[key: string]: MjDynamicFormSchemaField};
 
         const fieldIds = Object.keys(fields);
+        const controlIds = Object.keys(this.formGroup.controls);
 
-        for (const fieldId of fieldIds.filter(id => !this.formGroup.get(id))) {
+        for (const fieldId of fieldIds.filter(id => !controlIds.includes(id))) {
             this.addFormControl(fieldId, fields[fieldId]);
         }
 
-        for (const fieldId of fieldIds.filter(id => this.formGroup.get(id))) {
+        for (const fieldId of fieldIds.filter(id => controlIds.includes(id))) {
             this.updateFormControl(fieldId, fields[fieldId]);
         }
 
-        for (const controlId of Object.keys(this.formGroup.controls).filter(id => !fields[id])) {
+        for (const controlId of controlIds.filter(id => !fields[id])) {
             this.removeFormControl(controlId);
         }
     }
 
     private addFormControl(id: string, field: MjDynamicFormSchemaField): void {
-        this.formGroup.addControl(id, new FormControl(field.defaultValue, this.getValidators(field)));
+        const control = new FormControl(field.defaultValue, this.getValidators(field));
+        this.formGroup.addControl(id, control);
     }
 
     private updateFormControl(id: string, field: MjDynamicFormSchemaField): void {
         const control = this.formGroup.get(id);
-        control.setValidators(this.getValidators(field));
+
+        // I feel like there should be a setTimeout necessary here, but it doesn't seem to be so...
+        control.setValidators([...this.getValidators(field), this._rawValidators[field.id]]);
 
         if (control.pristine && typeof field.defaultValue !== "undefined") {
             control.setValue(field.defaultValue);

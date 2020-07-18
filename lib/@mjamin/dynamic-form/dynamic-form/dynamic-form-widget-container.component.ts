@@ -1,5 +1,5 @@
-import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, DoCheck } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, DoCheck, ChangeDetectionStrategy } from "@angular/core";
+import { FormGroup, ValidatorFn, FormControl } from "@angular/forms";
 import { CdkPortalOutlet } from "@angular/cdk/portal";
 
 import { NamedPortalService, NamedPortalServiceContext } from "../core/named-portals";
@@ -8,7 +8,8 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 
 @Component({
     selector: "df-widget-container",
-    template: `<ng-template cdkPortalOutlet></ng-template>`
+    template: `<ng-template cdkPortalOutlet></ng-template>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
@@ -22,6 +23,14 @@ export class DynamicFormWidgetContainerComponent implements DoCheck {
 
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
          this._formWidgets = namedPortalService.for("dynamic-form-widgets");
+    }
+
+    get rawValidator(): ValidatorFn {
+        return this._componentRef && this._componentRef.instance.formControlName.validator;
+    }
+
+    get control(): FormControl {
+        return this._componentRef && this._componentRef.instance.control;
     }
 
     ngDoCheck(): void {
