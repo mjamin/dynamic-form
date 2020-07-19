@@ -53,10 +53,10 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         this.subscribe(this.editorFormControl.valueChanges.pipe(
             startWith(this.editorFormControl.value),
             delay(0), // skip current change detection cycle
-            tap(() => {
-                this.save("form-schema", this.editorFormControl.value);
+            tap(value => {
+                this.save("form-schema", value);
 
-                const schema = this.parseFormSchema(this.editorFormControl.value);
+                const schema = this.parseFormSchema(value);
                 if (schema != null) {
                     this.formController.setSchema(schema);
                 }
