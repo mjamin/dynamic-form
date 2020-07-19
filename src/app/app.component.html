@@ -1,4 +1,4 @@
-<as-split [gutterSize]="9" direction="horizontal">
+<as-split #hsplit [gutterSize]="9" direction="horizontal">
     <as-split-area id="code-area" [size]="38.2">
         <ngx-monaco-editor [options]="editorOptions" [formControl]="editorFormControl" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
     </as-split-area>

@@ -1,6 +1,7 @@
 import { tap, startWith, delay, map, distinctUntilChanged } from "rxjs/operators";
-import { Component, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from "@angular/core";
+import { Component, AfterViewInit, ChangeDetectorRef, ViewEncapsulation, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { SplitComponent } from "angular-split";
 
 import { withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController, MjDynamicFormSchema } from "@mjamin/dynamic-form";
@@ -17,6 +18,8 @@ import { Observable, Subject } from "rxjs";
 export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
     private _editor: monaco.editor.IEditor;
     private _editorDecorationsChange = new Subject<monaco.editor.IMarker[]>();
+
+    @ViewChild("hsplit") hSplitComponent: SplitComponent;
 
     editorFormControl = new FormControl(this.load("form-schema", EXAMPLE_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
@@ -51,6 +54,10 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
     }
 
     ngAfterViewInit(): void {
+        this.subscribe(this.hSplitComponent.dragProgress$.pipe(
+            tap(() => { if (this._editor) { this._editor.layout(); } })
+        ));
+
         this.subscribe(this.editorFormControl.valueChanges.pipe(
             startWith(this.editorFormControl.value),
             delay(0), // skip current change detection cycle
