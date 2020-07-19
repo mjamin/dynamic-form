@@ -166,9 +166,12 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     private updateFormControl(id: string, field: MjDynamicFormSchemaField): void {
         const control = this.formGroup.get(id);
+        const validators = this._rawValidators[field.id]
+            ? [...this.getValidators(field), this._rawValidators[field.id]]
+            : this.getValidators(field);
 
         // I feel like there should be a setTimeout necessary here, but it doesn't seem to be so...
-        control.setValidators([...this.getValidators(field), this._rawValidators[field.id]]);
+        control.setValidators(validators);
 
         if (control.pristine && typeof field.defaultValue !== "undefined") {
             control.setValue(field.defaultValue);
