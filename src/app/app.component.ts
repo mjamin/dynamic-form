@@ -29,6 +29,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
 
     get values(): Observable<string> {
         return this.formController.values.pipe(
+            map(values => ({...values})),
             tap(v => { for (const prop in v) { if (v[prop] === null) { delete v[prop]; } } }),
             map(v => JSON.stringify(v, null, 1).replace(/\n/g, "").replace(/\[ /g, "[").replace(/ \]/g, "]").replace(/}$/, " }"))
         );
