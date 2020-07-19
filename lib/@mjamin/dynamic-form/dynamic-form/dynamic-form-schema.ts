@@ -17,7 +17,6 @@ export interface MjDynamicFormSchemaFieldset {
 export interface MjDynamicFormSchemaField {
     id: string;
     label: string;
-    description?: string;
     placeholder?: string;
     hint?: string;
     type: string;
