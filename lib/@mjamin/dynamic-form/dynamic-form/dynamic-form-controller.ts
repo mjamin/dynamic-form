@@ -1,5 +1,5 @@
 import { Subscription, Observable, ReplaySubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { tap, map } from "rxjs/operators";
 
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { MjDynamicFormSchema } from "./dynamic-form-schema";
@@ -14,6 +14,10 @@ export class MjDynamicFormController {
     private _validSubject = new ReplaySubject<boolean>(1);
     private _valuesSubject = new ReplaySubject<{[key: string]: any}>(1);
     private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
+
+    get title(): Observable<string> {
+        return this._schemaSubject.asObservable().pipe(map(s => s.title));
+    }
 
     get values(): Observable<{[key: string]: any}> {
         return this._valuesSubject.asObservable();

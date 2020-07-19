@@ -1,21 +1,28 @@
-<as-split [gutterSize]="9" direction="horizontal">
-    <as-split-area id="code-area" [size]="splitData.sizes[0]">
+<as-split #hsplit [gutterSize]="9" direction="horizontal">
+    <as-split-area id="code-area" [size]="hSplitData.sizes[0]">
         <ngx-monaco-editor [options]="editorOptions" [formControl]="editorFormControl" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
     </as-split-area>
-    <as-split-area id="form-area" [size]="splitData.sizes[1]">
-        <mat-toolbar color="primary">
-            <button mat-button type="button" (click)="onDelete()">Delete</button>
-            <button mat-button type="button" (click)="onReset()">Reset to default</button>
-            <ng-container *mjAsync="let valid of formController.valid">
-                <button mat-icon-button style="margin-left: auto"  [color]="!valid ? 'warn' : ''">
-                    <mat-icon *ngIf="valid">check</mat-icon>
-                    <mat-icon *ngIf="!valid">error_outline</mat-icon>
-                </button>
-            </ng-container>
-        </mat-toolbar>
-        <div id="form-area-form-container" [class.disabled]="hasErrors">
-            <mj-dynamic-card-form [controller]="formController" ></mj-dynamic-card-form>
-            <pre>{{formController.values | async | json}}</pre>
-        </div>
+    <as-split-area id="form-area" [size]="hSplitData.sizes[1]">
+        <as-split #hsplit [gutterSize]="9" direction="vertical">
+            <as-split-area id="code-area" [size]="vSplitData.sizes[0]">
+                <mat-toolbar color="primary">
+                    <span>{{formController.title | async}}</span>
+                    <button mat-icon-button (click)="onDelete()" style="margin-left: auto"><mat-icon>delete_outline</mat-icon></button>
+                    <button mat-icon-button (click)="onReset()"><mat-icon>refresh</mat-icon></button>
+                    <ng-container *mjAsync="let valid of formController.valid">
+                        <button mat-icon-button [color]="!valid ? 'warn' : ''">
+                            <mat-icon *ngIf="valid">check</mat-icon>
+                            <mat-icon *ngIf="!valid">error_outline</mat-icon>
+                        </button>
+                    </ng-container>
+                </mat-toolbar>
+                <div id="form-area-form-container" [class.disabled]="hasErrors">
+                    <mj-dynamic-card-form [controller]="formController" ></mj-dynamic-card-form>
+                </div>
+            </as-split-area>
+            <as-split-area id="value-area" [size]="vSplitData.sizes[1]">
+                <pre>{{values | async}}</pre>
+            </as-split-area>
+        </as-split>
     </as-split-area>
 </as-split>

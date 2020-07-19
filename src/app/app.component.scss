@@ -42,16 +42,18 @@
                 margin: 0 auto;
             }
         }
-
-        pre {
-            display: block;
-            max-width: 960px;
-            margin: 0 auto;
-            font-size: 12px;
-        }
     }
 
     mat-toolbar {
         flex: 0 0 auto;
+    }
+}
+
+#value-area {
+    pre {
+        display: block;
+        margin: 16px;
+        font-size: 12px;
+        white-space: pre-line;
     }
 }

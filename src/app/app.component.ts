@@ -1,13 +1,13 @@
-import { tap, startWith, delay } from "rxjs/operators";
+import { tap, startWith, delay, map } from "rxjs/operators";
 import { Component, AfterViewInit, ViewChild, ChangeDetectorRef, ViewEncapsulation } from "@angular/core";
 import { FormControl } from "@angular/forms";
-
 import { SplitComponent } from "angular-split";
 
 import { withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController } from "@mjamin/dynamic-form";
 
 import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
+import { Observable } from "rxjs";
 
 @Component({
     selector: "app-root",
@@ -22,12 +22,20 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
     formController = new MjDynamicFormController();
     hasErrors = false;
-    splitData = this.load("angular-split", { gutterNum: 1, sizes: [38.2, 61.8] });
+    hSplitData = this.load("angular-split-h", { gutterNum: 1, sizes: [38.2, 61.8] });
+    vSplitData = this.load("angular-split-v", { gutterNum: 1, sizes: [85.41, 14.59] });
 
-    @ViewChild(SplitComponent) splitComponent: SplitComponent;
+    @ViewChild("hsplit") hSplitComponent: SplitComponent;
+    @ViewChild("vsplit") vSplitComponent: SplitComponent;
 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
+    }
+
+    get values(): Observable<string> {
+        return this.formController.values.pipe(
+            map(v => JSON.stringify(v, null, 1).replace(/\n/g, "").replace(/\[ /g, "[").replace(/ \]/g, "]").replace(/}$/, " }"))
+        );
     }
 
     onDelete(): void {
@@ -46,7 +54,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
     }
 
     ngAfterViewInit(): void {
-        this.subscribe(this.splitComponent.dragProgress$.pipe(
+        this.subscribe(this.hSplitComponent.dragProgress$.pipe(
             tap(v => {
                 this.save("angular-split", v);
                 if (this._editor) {
