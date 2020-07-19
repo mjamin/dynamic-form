@@ -1,13 +1,13 @@
-import { tap, startWith, delay, map } from "rxjs/operators";
+import { tap, startWith, delay, map, distinctUntilChanged } from "rxjs/operators";
 import { Component, AfterViewInit, ViewChild, ChangeDetectorRef, ViewEncapsulation } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { SplitComponent } from "angular-split";
 
 import { withSubscriptionSink } from "@mjamin/common";
-import { MjDynamicFormController } from "@mjamin/dynamic-form";
+import { MjDynamicFormController, MjDynamicFormSchema } from "@mjamin/dynamic-form";
 
 import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 
 @Component({
     selector: "app-root",
@@ -17,6 +17,7 @@ import { Observable } from "rxjs";
 })
 export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
     private _editor: monaco.editor.IEditor;
+    private _editorDecorationsChange = new Subject<monaco.editor.IMarker[]>();
 
     editorFormControl = new FormControl(this.load("form-schema", EXAMPLE_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
@@ -49,7 +50,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
 
     onEditorInit(editor: any): void {
         const editorModel = monaco.editor.createModel(this.editorFormControl.value, "json", monaco.Uri.parse("f://o/o.json"));
-        editorModel.onDidChangeDecorations(() => { this.updateErrorState(); });
+        editorModel.onDidChangeDecorations(() => { this._editorDecorationsChange.next(monaco.editor.getModelMarkers({})); });
         this._editor = editor;
         this._editor.setModel(editorModel);
     }
@@ -68,14 +69,34 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
             startWith(this.editorFormControl.value),
             delay(0), // skip current change detection cycle
             tap(() => {
-                try {
-                    this.save("form-schema", this.editorFormControl.value);
-                    this.formController.setSchema(this.editorFormControl.value ? JSON.parse(this.editorFormControl.value) : { tabs: [] });
-                } catch (error) {
-                    console.log(error.message);
+                this.save("form-schema", this.editorFormControl.value);
+
+                const schema = this.parseFormSchema(this.editorFormControl.value);
+                if (schema != null) {
+                    this.formController.setSchema(schema);
                 }
             })
         ));
+
+        this.subscribe(this._editorDecorationsChange.pipe(
+            startWith([]),
+            map(markers => markers.length > 0),
+            distinctUntilChanged(),
+            tap(hasErrors => {
+                this.hasErrors = hasErrors;
+                this._cdr.detectChanges();
+            })
+        ));
+    }
+
+    private parseFormSchema(value: string): MjDynamicFormSchema {
+        let schema: MjDynamicFormSchema = null;
+        try {
+            schema = JSON.parse(value);
+        } catch (error) {
+            console.log(error.message);
+        }
+        return schema;
     }
 
     private pushEditorValue(value: string): void {
@@ -83,14 +104,6 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         const model = this._editor.getModel() as monaco.editor.ITextModel;
         model.pushEditOperations([], [{ range: model.getFullModelRange(), text: value }], () => null);
         this._editor.setSelection(selection);
-    }
-
-    private updateErrorState(): void {
-        const hasErrors = monaco.editor.getModelMarkers({}).length > 0;
-        if (hasErrors !== this.hasErrors) {
-            this.hasErrors = hasErrors;
-            this._cdr.detectChanges();
-        }
     }
 
     private save(key: string, value: any): void {
