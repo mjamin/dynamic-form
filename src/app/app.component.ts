@@ -7,7 +7,7 @@ import { SplitComponent } from "angular-split";
 import { withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController } from "@mjamin/dynamic-form";
 
-import { DEFAULT_FORM } from "./default-form";
+import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
 
 @Component({
     selector: "app-root",
@@ -18,7 +18,7 @@ import { DEFAULT_FORM } from "./default-form";
 export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
     private _editor: monaco.editor.IEditor;
 
-    editorFormControl = new FormControl(this.load("form-schema", DEFAULT_FORM));
+    editorFormControl = new FormControl(this.load("form-schema", EXAMPLE_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
     formController = new MjDynamicFormController();
     hasErrors = false;
@@ -31,11 +31,11 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
     }
 
     onDelete(): void {
-        this.pushEditorValue(JSON.stringify({ label: "An example form", tabs: [] }, null, 4));
+        this.pushEditorValue(EMPTY_FORM);
     }
 
     onReset(): void {
-        this.pushEditorValue(DEFAULT_FORM);
+        this.pushEditorValue(EXAMPLE_FORM);
     }
 
     onEditorInit(editor: any): void {
