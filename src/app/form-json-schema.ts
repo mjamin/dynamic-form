@@ -10,10 +10,10 @@ export const FORM_JSON_SCHEMA = {
     ],
     additionalProperties: true,
     properties: {
-        label: {
-            $id: "#/properties/label",
+        title: {
+            $id: "#/properties/title",
             type: "string",
-            title: "The label (or title) of the form.",
+            title: "The title of the form.",
             default: ""
         },
         tabs: {
