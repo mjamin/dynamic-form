@@ -14,7 +14,7 @@ export const FORM_JSON_SCHEMA = {
             $id: "#/properties/title",
             type: "string",
             title: "The title of the form.",
-            default: ""
+            default: "New form"
         },
         tabs: {
             $id: "#/properties/tabs",
@@ -39,14 +39,13 @@ export const FORM_JSON_SCHEMA = {
                                 $id: "#/properties/tabs/items/anyOf/0/properties/id",
                                 type: "string",
                                 title: "The tab id",
-                                description: "Required to track the selected tab.",
-                                default: ""
+                                default: "tab-"
                             },
                             label: {
                                 $id: "#/properties/tabs/items/anyOf/0/properties/label",
                                 type: "string",
                                 title: "This tab's label",
-                                default: ""
+                                default: "New tab"
                             },
                             fieldsets: {
                                 $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets",
@@ -67,6 +66,12 @@ export const FORM_JSON_SCHEMA = {
                                             ],
                                             additionalProperties: true,
                                             properties: {
+                                                id: {
+                                                    $id: "#/properties/tabs/items/anyOf/0/properties/id",
+                                                    type: "string",
+                                                    title: "The fieldset id",
+                                                    default: "fieldset-"
+                                                },
                                                 label: {
                                                     $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/label",
                                                     type: "string",
@@ -96,20 +101,13 @@ export const FORM_JSON_SCHEMA = {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/id",
                                                                         type: "string",
                                                                         title: "The id of this form field",
-                                                                        description: "Required to map this field to a form control.",
-                                                                        default: ""
+                                                                        default: "field-"
                                                                     },
                                                                     label: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/label",
                                                                         type: "string",
                                                                         title: "This field's label",
-                                                                        default: ""
-                                                                    },
-                                                                    description: {
-                                                                        $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/description",
-                                                                        type: "string",
-                                                                        title: "This field's description",
-                                                                        default: ""
+                                                                        default: "New field"
                                                                     },
                                                                     defaultValue: {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/description",
