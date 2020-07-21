@@ -3,7 +3,7 @@ import { tap, map } from "rxjs/operators";
 
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { MjDynamicFormSchema } from "./dynamic-form-schema";
-import { FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, DynamicFormEvent } from "./dynamic-form-event";
+import { FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, DynamicFormEvent, FormInitializedEvent } from "./dynamic-form-event";
 
 export class MjDynamicFormController {
     private _attached: boolean;
@@ -97,6 +97,11 @@ export class MjDynamicFormController {
         if (event instanceof FormStatusChangedEvent) {
             this._validSubject.next(event.form.valid);
             return;
+        }
+
+        if (event instanceof FormInitializedEvent) {
+            this._validSubject.next(event.form.valid);
+            this._valuesSubject.next(event.form.value);
         }
     }
 }

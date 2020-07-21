@@ -17,3 +17,7 @@ export class FormSchemaChangedEvent extends DynamicFormEvent {
 export class FormStatusChangedEvent extends DynamicFormEvent {
     constructor(public form: FormGroup) { super(form); }
 }
+
+export class FormInitializedEvent extends DynamicFormEvent {
+    constructor(public form: FormGroup) { super(form); }
+}

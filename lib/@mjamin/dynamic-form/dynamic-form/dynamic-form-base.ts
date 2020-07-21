@@ -6,7 +6,7 @@ import { withSubscriptionSink } from "@mjamin/common";
 
 import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
-import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent } from "./dynamic-form-event";
+import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormInitializedEvent } from "./dynamic-form-event";
 import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
@@ -110,6 +110,8 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     }
 
     ngAfterViewInit(): void {
+        this.formEvents.emit(new FormInitializedEvent(this.formGroup));
+
         this.subscribe(this.widgetContainers.changes.pipe(
             startWith(this.widgetContainers),
             tap((widgetContainers: QueryList<MjDynamicFormWidgetContainerComponent>) => {
