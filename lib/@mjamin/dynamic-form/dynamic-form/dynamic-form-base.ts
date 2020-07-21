@@ -172,11 +172,13 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         for (const controlId of controlIds.filter(id => !fields[id])) {
             this.removeFormControl(controlId);
         }
+
+        // Update value and validity once after all controls have been registered/unregistered with the form group
+        this.formGroup.updateValueAndValidity();
     }
 
     private addFormControl(id: string, field: MjDynamicFormSchemaField): void {
-        const control = new FormControl(field.defaultValue, this.getValidators(field));
-        this.formGroup.addControl(id, control);
+        this.formGroup.registerControl(id, new FormControl(field.defaultValue, this.getValidators(field)));
     }
 
     private updateFormControl(id: string, field: MjDynamicFormSchemaField): void {
@@ -197,12 +199,13 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         } else if (!field.readonly && control.disabled) {
             control.enable();
         }
-
-        control.updateValueAndValidity();
     }
 
     private removeFormControl(id: string): void {
-        this.formGroup.removeControl(id);
+        // Remove control without emitting an event. Sadly, there's no unregisterControl method.
+        // see: https://github.com/angular/angular/issues/29662
+        (this.formGroup.controls[id] as any)._registerOnCollectionChange(() => {});
+        delete this.formGroup.controls[id];
     }
 
     private getValidators(field: MjDynamicFormSchemaField): ValidatorFn[] {
