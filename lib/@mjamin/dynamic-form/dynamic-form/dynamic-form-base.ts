@@ -19,7 +19,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     @ViewChildren(MjDynamicFormWidgetContainerComponent) private _widgetContainers = new QueryList<MjDynamicFormWidgetContainerComponent>();
 
-    @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
+    @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
     @Output() formEvents = new EventEmitter<DynamicFormEvent>();
 
