@@ -1,5 +1,5 @@
-import { Observable, Subscription } from "rxjs";
-import { Directive, TemplateRef, Input, ViewContainerRef, OnInit, EmbeddedViewRef, OnDestroy } from "@angular/core";
+import { Observable } from "rxjs";
+import { Directive, TemplateRef, Input, ViewContainerRef, OnInit, EmbeddedViewRef } from "@angular/core";
 import { tap } from "rxjs/operators";
 
 import { withSubscriptionSink } from "../../mixins/subscription-sink";

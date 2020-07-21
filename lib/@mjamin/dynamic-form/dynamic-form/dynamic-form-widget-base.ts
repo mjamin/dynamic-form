@@ -1,7 +1,7 @@
+import { ViewChild, Directive } from "@angular/core";
 import { FormGroup, FormControl, FormControlName } from "@angular/forms";
 
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
-import { ViewChild, Directive } from "@angular/core";
 
 @Directive()
 export abstract class MjDynamicFormWidgetBase {
