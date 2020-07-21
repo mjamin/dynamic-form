@@ -17,9 +17,9 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     private _selectedTabId: string;
     private _rawValidators: {[key: string]: ValidatorFn } = {};
 
-    @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
+    @ViewChildren(MjDynamicFormWidgetContainerComponent) private _widgetContainers = new QueryList<MjDynamicFormWidgetContainerComponent>();
 
-    @ViewChildren(MjDynamicFormWidgetContainerComponent) widgetContainers = new QueryList<MjDynamicFormWidgetContainerComponent>();
+    @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
 
     @Output() formEvents = new EventEmitter<DynamicFormEvent>();
 
@@ -112,8 +112,8 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
             })
         ));
 
-        this.subscribe(this.widgetContainers.changes.pipe(
-            startWith(this.widgetContainers),
+        this.subscribe(this._widgetContainers.changes.pipe(
+            startWith(this._widgetContainers),
             tap((widgetContainers: QueryList<MjDynamicFormWidgetContainerComponent>) => {
                 for (const c of widgetContainers) {
                     this._rawValidators[c.field.id] = c.rawValidator;
