@@ -38,11 +38,19 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         );
     }
 
+    onSave(event: Event): void {
+        this.formController.submit(event);
+    }
+
+    onReset(): void {
+        this.formController.reset();
+    }
+
     onDelete(): void {
         this.pushEditorValue(EMPTY_FORM);
     }
 
-    onReset(): void {
+    onLoad(): void {
         this.pushEditorValue(EXAMPLE_FORM);
     }
 

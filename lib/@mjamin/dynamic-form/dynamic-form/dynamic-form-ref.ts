@@ -9,4 +9,6 @@ export interface DynamicFormRef {
     setSchema(schema: MjDynamicFormSchema, emitEvent?: boolean): void;
     setValues(values: {[key: string]: any}, emitEvent?: boolean): void;
     markForCheck(): void;
+    reset(): void;
+    submit(event: Event): void;
 }

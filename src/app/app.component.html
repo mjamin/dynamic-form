@@ -7,8 +7,10 @@
             <as-split-area id="code-area" [size]="85.41">
                 <mat-toolbar color="primary">
                     <span>{{formController.title | async}}</span>
-                    <button mat-icon-button (click)="onDelete()" style="margin-left: auto"><mat-icon>delete_outline</mat-icon></button>
+                    <button mat-icon-button (click)="onSave($event)" style="margin-left: auto"><mat-icon>save_outline</mat-icon></button>
                     <button mat-icon-button (click)="onReset()"><mat-icon>refresh</mat-icon></button>
+                    <button mat-icon-button (click)="onDelete()"><mat-icon>delete_outline</mat-icon></button>
+                    <button mat-icon-button (click)="onLoad()"><mat-icon>text_snippet</mat-icon></button>
                     <ng-container *mjAsync="let valid of formController.valid">
                         <button mat-icon-button [color]="!valid ? 'warn' : ''">
                             <mat-icon *ngIf="valid">check</mat-icon>

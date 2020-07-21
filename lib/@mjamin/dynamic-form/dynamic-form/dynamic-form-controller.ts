@@ -27,6 +27,14 @@ export class MjDynamicFormController {
         return this._validSubject.asObservable();
     }
 
+    submit(event: Event): void {
+        this._formRef.submit(event);
+    }
+
+    reset(): void {
+        this._formRef.reset();
+    }
+
     setValues(values: {[key: string]: any}): void {
         this._values = values;
 

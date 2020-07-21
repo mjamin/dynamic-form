@@ -34,6 +34,10 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
         return this._componentRef && this._componentRef.instance.control;
     }
 
+    markForCheck(): void {
+        this._componentRef.changeDetectorRef.markForCheck();
+    }
+
     ngDoCheck(): void {
         if (this._fieldType !== this.field.type) {
             this.updateComponentPortal();

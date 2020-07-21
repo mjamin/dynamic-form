@@ -37,7 +37,11 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     get schema(): MjDynamicFormSchema { return this._schema; }
     set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
 
-    markForCheck(): void {
+    markForCheck(markFields: boolean = false): void {
+        if (markFields) {
+            this._widgetContainers.forEach(c => c.markForCheck());
+        }
+
         this._cdr.markForCheck();
     }
 
@@ -88,6 +92,15 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         }
 
         return false;
+    }
+
+    reset(): void {
+        this.formGroupDirective.resetForm();
+    }
+
+    submit(event: Event): void {
+        this.formGroupDirective.onSubmit(event);
+        this.markForCheck(true);
     }
 
     ngOnDestroy(): void {
