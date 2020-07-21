@@ -27,20 +27,6 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
-
-        this.subscribe(this.formGroup.statusChanges.pipe(
-            distinctUntilChanged(),
-            tap(() => {
-                this.formEvents.emit(new FormStatusChangedEvent(this.formGroup));
-            })
-        ));
-
-        this.subscribe(this.formGroup.valueChanges.pipe(
-            distinctUntilChanged(),
-            tap(() => {
-                this.formEvents.emit(new FormValueChangedEvent(this.formGroup));
-            })
-        ));
     }
 
     @Input()
@@ -111,6 +97,20 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     ngAfterViewInit(): void {
         this.formEvents.emit(new FormInitializedEvent(this.formGroup));
+
+        this.subscribe(this.formGroup.statusChanges.pipe(
+            distinctUntilChanged(),
+            tap(() => {
+                this.formEvents.emit(new FormStatusChangedEvent(this.formGroup));
+            })
+        ));
+
+        this.subscribe(this.formGroup.valueChanges.pipe(
+            distinctUntilChanged(),
+            tap(() => {
+                this.formEvents.emit(new FormValueChangedEvent(this.formGroup));
+            })
+        ));
 
         this.subscribe(this.widgetContainers.changes.pipe(
             startWith(this.widgetContainers),
