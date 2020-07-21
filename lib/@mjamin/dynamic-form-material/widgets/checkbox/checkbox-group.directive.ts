@@ -35,7 +35,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     set disabled(value) { this.setDisabled(value); }
 
     writeValue(obj: any): void {
-        this.setValue(obj, false, false);
+        this.setValue(obj, true, false);
         this._cdr.markForCheck();
     }
 
