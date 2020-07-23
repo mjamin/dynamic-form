@@ -9,6 +9,7 @@ import { RadioComponent } from "./widgets/radio/radio.component";
 import { SelectComponent } from "./widgets/select/select.component";
 import { TextareaComponent } from "./widgets/textarea/textarea.component";
 import { TextComponent } from "./widgets/text/text.component";
+import { HtmlComponent } from "./widgets/html/html.component";
 import { MaterialModule } from "./material.module";
 import { MjCardFormComponent } from "./forms/card-form.component";
 import { MjMatFormFieldControlModule } from "./shared/mat-form-field-control/mat-form-field-control.module";
@@ -44,7 +45,8 @@ export class MjDynamicFormMaterialModule {
                     radio: RadioComponent,
                     select: SelectComponent,
                     textarea: TextareaComponent,
-                    text: TextComponent
+                    text: TextComponent,
+                    html: HtmlComponent
                 })
             ]
         };

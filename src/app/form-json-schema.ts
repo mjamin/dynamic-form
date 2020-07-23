@@ -136,7 +136,7 @@ export const FORM_JSON_SCHEMA = {
                                                                         $id: "#/properties/tabs/items/anyOf/0/properties/fieldsets/items/anyOf/0/properties/fields/items/anyOf/0/properties/type",
                                                                         type: "string",
                                                                         title: "The type of this form field",
-                                                                        enum: ["text", "textarea", "radio", "checkbox", "select"],
+                                                                        enum: ["text", "textarea", "radio", "checkbox", "select", "html"],
                                                                         default: "text"
                                                                     },
                                                                     data: {
