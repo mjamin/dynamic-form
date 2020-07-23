@@ -4,7 +4,7 @@
     </nav>
     <div *ngFor="let t of schema.tabs; let i = index; trackBy: trackByIdFn" [hidden]="!isSelectedTab(schema, t, i)">
         <mat-card *ngFor="let fs of t.fieldsets; trackBy: trackByIdFn">
-            <mat-card-title>{{fs.label}}</mat-card-title>
+            <mat-card-title *ngIf="fs.label">{{fs.label}}</mat-card-title>
             <mat-card-content>
                 <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
             </mat-card-content>
