@@ -27,7 +27,9 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     }
 
     get rawValidator(): ValidatorFn {
-        return this._componentRef && this._componentRef.instance.formControlName.validator;
+        return this._componentRef && this._componentRef.instance.formControlName
+            ? this._componentRef.instance.formControlName.validator
+            : null;
     }
 
     get control(): FormControl {
