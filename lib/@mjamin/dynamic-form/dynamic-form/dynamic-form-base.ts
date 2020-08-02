@@ -7,7 +7,7 @@ import { withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormInitializedEvent } from "./dynamic-form-event";
-import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField } from "./dynamic-form-schema";
+import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField, MjDynamicFormSchemaFieldset } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
 @Directive()
@@ -36,6 +36,10 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     @Input()
     get schema(): MjDynamicFormSchema { return this._schema; }
     set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
+
+    hasRowDefinitions(fieldset: MjDynamicFormSchemaFieldset): boolean {
+        return Array.isArray(fieldset.fields) && fieldset.fields.length > 0 && Array.isArray(fieldset.fields[0]);
+    }
 
     markForCheck(markFields: boolean = false): void {
         if (markFields) {
@@ -155,8 +159,8 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     private updateFormGroup(schema: MjDynamicFormSchema): void {
         const fields = (schema.tabs || [])
             .flatMap(t => t.fieldsets || [])
-            .flatMap(fs => fs.fields || [])
-            .reduce((o, field) => { o[field.id] = field; return o; }, {}) as {[key: string]: MjDynamicFormSchemaField};
+            .flatMap(fs => this.getFields(fs))
+            .reduce((o, field) => { o[field.id] = field; return o; }, {}) as { [key: string]: MjDynamicFormSchemaField };
 
         const fieldIds = Object.keys(fields);
         const controlIds = Object.keys(this.formGroup.controls);
@@ -206,6 +210,12 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         // see: https://github.com/angular/angular/issues/29662
         (this.formGroup.controls[id] as any)._registerOnCollectionChange(() => {});
         delete this.formGroup.controls[id];
+    }
+
+    private getFields(fieldset: MjDynamicFormSchemaFieldset): MjDynamicFormSchemaField[] {
+        return this.hasRowDefinitions(fieldset)
+            ? (fieldset.fields as MjDynamicFormSchemaField[][]).flatMap(r => r)
+            : (fieldset.fields as MjDynamicFormSchemaField[]) || [];
     }
 
     private getValidators(field: MjDynamicFormSchemaField): ValidatorFn[] {

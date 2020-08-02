@@ -9,7 +9,11 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 @Component({
     selector: "df-widget-container",
     template: `<ng-template cdkPortalOutlet></ng-template>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        "[style.flex-basis.%]": "field.width || field.space",
+        "[style.margin-right.%]": "totalWidth"
+    }
 })
 export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
@@ -34,6 +38,12 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
 
     get control(): FormControl {
         return this._componentRef && this._componentRef.instance.control;
+    }
+
+    get totalWidth(): number {
+        return this.field.space
+            ? this.field.space - this.field.width
+            : null;
     }
 
     markForCheck(): void {

@@ -11,7 +11,7 @@ export interface MjDynamicFormSchemaTab {
 
 export interface MjDynamicFormSchemaFieldset {
     label?: string;
-    fields: MjDynamicFormSchemaField[];
+    fields: MjDynamicFormSchemaField[] | MjDynamicFormSchemaField[][];
 }
 
 export interface MjDynamicFormSchemaField {
@@ -25,4 +25,6 @@ export interface MjDynamicFormSchemaField {
     data?: any;
     config?: any;
     defaultValue?: any;
+    width?: number;
+    space?: number;
 }

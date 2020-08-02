@@ -88,3 +88,18 @@ mj-dynamic-form {
         }
     }
 }
+
+.df-widgets-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+
+    df-widget-container {
+        flex: 0 0 100%;
+
+        .mj-dynamic-form-widget {
+            display: block;
+            padding: 0 8px;
+        }
+    }
+}
