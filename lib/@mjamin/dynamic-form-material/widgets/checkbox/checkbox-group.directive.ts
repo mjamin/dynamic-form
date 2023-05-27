@@ -2,7 +2,7 @@ import { startWith, tap, map } from "rxjs/operators";
 import { QueryList, ContentChildren, Directive, Input, ChangeDetectorRef, AfterContentInit } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { MatCheckbox } from "@angular/material/checkbox";
+import { MatLegacyCheckbox as MatCheckbox } from "@angular/material/legacy-checkbox";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
