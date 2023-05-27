@@ -5,16 +5,9 @@
     <div *ngFor="let t of schema.tabs; let i = index; trackBy: trackByIdFn" [hidden]="!isSelectedTab(schema, t, i)">
         <fieldset *ngFor="let fs of t.fieldsets; trackBy: trackByIdFn">
             <label>{{fs.label}}</label>
-            <ng-container *ngIf="hasRowDefinitions(fs)">
-                <div class="df-widgets-container" *ngFor="let row of fs.fields">
-                    <df-widget-container *ngFor="let f of row; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="!hasRowDefinitions(fs)">
-                <div class="df-widgets-container">
-                    <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
-                </div>
-            </ng-container>
+            <div class="df-widgets-container">
+                <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
+            </div>
         </fieldset>
     </div>
 </form>

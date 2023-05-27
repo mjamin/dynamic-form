@@ -11,7 +11,7 @@ export interface MjDynamicFormSchemaTab {
 
 export interface MjDynamicFormSchemaFieldset {
     label?: string;
-    fields: MjDynamicFormSchemaField[] | MjDynamicFormSchemaField[][];
+    fields: MjDynamicFormSchemaField[];
 }
 
 export interface MjDynamicFormSchemaField {

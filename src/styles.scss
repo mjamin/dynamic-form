@@ -1,9 +1,7 @@
 @use '@angular/material' as mat;
 @import "@angular/material/theming";
 
-$custom-typography: mat.define-legacy-typography-config(
-    $body-1: mat.define-typography-level(16px, 24px, 500)
-);
+$custom-typography: mat.define-legacy-typography-config($body-1: mat.define-typography-level(16px, 24px, 500));
 
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
@@ -20,17 +18,14 @@ $candy-app-primary: mat.define-palette(mat.$indigo-palette);
 $candy-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $candy-app-warn: mat.define-palette(mat.$red-palette);
 
-$candy-app-theme: mat.define-light-theme((
-    color: (
-        primary: $candy-app-primary,
-        accent: $candy-app-accent,
-        warn: $candy-app-warn
-    )
-));
+$candy-app-theme: mat.define-light-theme((color: (primary: $candy-app-primary,
+                accent: $candy-app-accent,
+                warn: $candy-app-warn )));
 
 @include mat.all-legacy-component-themes($candy-app-theme);
 
-html, body {
+html,
+body {
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -45,12 +40,12 @@ body {
 }
 
 mj-dynamic-form {
-    fieldset ~ fieldset {
+    fieldset~fieldset {
         margin-top: 16px;
     }
 
     fieldset {
-        > label {
+        >label {
             display: block;
             margin-bottom: 8px;
         }
@@ -67,7 +62,7 @@ mj-dynamic-form {
             border-radius: 4px;
 
             &.active {
-                background: rgba(0,0,0,.1);
+                background: rgba(0, 0, 0, .1);
             }
 
             &~.df-tab {

@@ -1,11 +1,11 @@
-import { Observable, Subject, merge } from "rxjs";
-import { tap, startWith } from "rxjs/operators";
-import { Directive, OnDestroy, Optional, Self, ElementRef, HostBinding, Input, Output, EventEmitter, OnInit, DoCheck } from "@angular/core";
-import { NgControl, UntypedFormControl, NgForm, FormGroupDirective } from "@angular/forms";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
+import { Directive, DoCheck, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Optional, Output, Self } from "@angular/core";
+import { FormGroupDirective, NgControl, NgForm, UntypedFormControl } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MatLegacyFormFieldControl as MatFormFieldControl } from "@angular/material/legacy-form-field";
+import { Observable, Subject, merge } from "rxjs";
+import { startWith, tap } from "rxjs/operators";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
@@ -140,7 +140,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
         }
     }
 
-    ngOnDestroy(): void {
+    override ngOnDestroy(): void {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._stateChangesSubject.complete();
     }

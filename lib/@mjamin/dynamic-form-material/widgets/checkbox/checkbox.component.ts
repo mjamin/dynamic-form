@@ -15,7 +15,7 @@ import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynami
     viewProviders: [ provideControlContainer() ]
 })
 export class CheckboxComponent extends MjDynamicFormWidgetBase {
-    get labelVisible(): boolean {
+    override get labelVisible(): boolean {
         return super.labelVisible && this.hasOptions;
     }
 

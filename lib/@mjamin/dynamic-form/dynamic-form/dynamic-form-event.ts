@@ -7,17 +7,17 @@ export class DynamicFormEvent {
 }
 
 export class FormValueChangedEvent extends DynamicFormEvent {
-    constructor(public form: UntypedFormGroup) { super(form); }
+    constructor(public override form: UntypedFormGroup) { super(form); }
 }
 
 export class FormSchemaChangedEvent extends DynamicFormEvent {
-    constructor(public form: UntypedFormGroup, public schema: MjDynamicFormSchema) { super(form); }
+    constructor(public override form: UntypedFormGroup, public schema: MjDynamicFormSchema) { super(form); }
 }
 
 export class FormStatusChangedEvent extends DynamicFormEvent {
-    constructor(public form: UntypedFormGroup) { super(form); }
+    constructor(public override form: UntypedFormGroup) { super(form); }
 }
 
 export class FormInitializedEvent extends DynamicFormEvent {
-    constructor(public form: UntypedFormGroup) { super(form); }
+    constructor(public override form: UntypedFormGroup) { super(form); }
 }

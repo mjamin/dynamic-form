@@ -1,13 +1,13 @@
-import { tap, distinctUntilChanged, startWith } from "rxjs/operators";
-import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
+import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { FormGroupDirective, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { distinctUntilChanged, startWith, tap } from "rxjs/operators";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
 import { MjDynamicFormController } from "./dynamic-form-controller";
+import { DynamicFormEvent, FormInitializedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormValueChangedEvent } from "./dynamic-form-event";
 import { DynamicFormRef } from "./dynamic-form-ref";
-import { DynamicFormEvent, FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormInitializedEvent } from "./dynamic-form-event";
-import { MjDynamicFormSchema, MjDynamicFormSchemaTab, MjDynamicFormSchemaField, MjDynamicFormSchemaFieldset } from "./dynamic-form-schema";
+import { MjDynamicFormSchema, MjDynamicFormSchemaField, MjDynamicFormSchemaTab } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
 @Directive()
@@ -36,10 +36,6 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     @Input()
     get schema(): MjDynamicFormSchema { return this._schema; }
     set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
-
-    hasRowDefinitions(fieldset: MjDynamicFormSchemaFieldset): boolean {
-        return Array.isArray(fieldset.fields) && fieldset.fields.length > 0 && Array.isArray(fieldset.fields[0]);
-    }
 
     markForCheck(markFields: boolean = false): void {
         if (markFields) {
@@ -107,7 +103,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck(true);
     }
 
-    ngOnDestroy(): void {
+    override ngOnDestroy(): void {
         super.ngOnDestroy();
         this._controller.detach();
     }
@@ -159,8 +155,8 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     private updateFormGroup(schema: MjDynamicFormSchema): void {
         const fields = (schema.tabs || [])
             .flatMap(t => t.fieldsets || [])
-            .flatMap(fs => this.getFields(fs))
-            .reduce((o, field) => { o[field.id] = field; return o; }, {}) as { [key: string]: MjDynamicFormSchemaField };
+            .flatMap(fs => fs.fields)
+            .reduce((o, field) => { o[field.id] = field; return o; }, {} as { [key: string]: MjDynamicFormSchemaField }) as { [key: string]: MjDynamicFormSchemaField };
 
         const fieldIds = Object.keys(fields);
         const controlIds = Object.keys(this.formGroup.controls);
@@ -212,12 +208,6 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         delete this.formGroup.controls[id];
     }
 
-    private getFields(fieldset: MjDynamicFormSchemaFieldset): MjDynamicFormSchemaField[] {
-        return this.hasRowDefinitions(fieldset)
-            ? (fieldset.fields as MjDynamicFormSchemaField[][]).flatMap(r => r)
-            : (fieldset.fields as MjDynamicFormSchemaField[]) || [];
-    }
-
     private getValidators(field: MjDynamicFormSchemaField): ValidatorFn[] {
         if (!field.validators) {
             return [];
@@ -228,10 +218,10 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         for (const name of Object.keys(field.validators)) {
             switch (name) {
                 case "required":
-                    if (field.validators.required === true) { validators.push(Validators.required); }
+                    if (field.validators["required"] === true) { validators.push(Validators.required); }
                     break;
                 case "requiredTrue":
-                    if (field.validators.requiredTrue === true) { validators.push(Validators.requiredTrue); }
+                    if (field.validators["requiredTrue"] === true) { validators.push(Validators.requiredTrue); }
                     break;
                 case "minlength":
                     validators.push(Validators.minLength((field.validators[name] as any).length || 0));

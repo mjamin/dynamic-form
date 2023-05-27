@@ -1,6 +1,6 @@
-import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, DoCheck, ChangeDetectionStrategy } from "@angular/core";
-import { UntypedFormGroup, ValidatorFn, UntypedFormControl } from "@angular/forms";
 import { CdkPortalOutlet } from "@angular/cdk/portal";
+import { ChangeDetectionStrategy, Component, ComponentRef, DoCheck, Input, ViewChild, ViewContainerRef } from "@angular/core";
+import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from "@angular/forms";
 
 import { NamedPortalService, NamedPortalServiceContext } from "../core/named-portals";
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
@@ -17,14 +17,14 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 })
 export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
-    private _componentRef: ComponentRef<MjDynamicFormWidgetBase>;
-    private _fieldType: string;
-    private _fieldLabel: string;
+    private _componentRef!: ComponentRef<MjDynamicFormWidgetBase>;
+    private _fieldType!: string;
+    private _fieldLabel!: string;
 
-    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
+    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet!: CdkPortalOutlet;
 
-    @Input() field: MjDynamicFormSchemaField;
-    @Input() form: UntypedFormGroup;
+    @Input() field!: MjDynamicFormSchemaField;
+    @Input() form!: UntypedFormGroup;
 
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
          this._formWidgets = namedPortalService.for("dynamic-form-widgets");

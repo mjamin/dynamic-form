@@ -1,5 +1,5 @@
-import { ViewChild, Directive } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl, FormControlName } from "@angular/forms";
+import { Directive, ViewChild } from "@angular/core";
+import { FormControlName, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
 
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 
@@ -20,7 +20,7 @@ export abstract class MjDynamicFormWidgetBase {
     }
 
     get required(): boolean {
-        return this.field.validators && this.field.validators.required === true;
+        return this.field.validators && this.field.validators["required"] === true;
     }
 
     get control(): UntypedFormControl {
@@ -39,12 +39,12 @@ export abstract class MjDynamicFormWidgetBase {
         }
 
         if (this._control.hasError("minlength")) {
-            const missing = this._control.errors.minlength.requiredLength - this._control.errors.minlength.actualLength;
+            const missing = this._control.errors["minlength"].requiredLength - this._control.errors["minlength"].actualLength;
             return `Requires at least ${missing === 1 ? "one more charachter" : `${missing} more characters`}.`;
         }
 
         if (this._control.hasError("maxlength")) {
-            return `A maximum of ${this._control.errors.maxlength.requiredLength} characters are allowed.`;
+            return `A maximum of ${this._control.errors["maxlength"].requiredLength} characters are allowed.`;
         }
 
         return "Something went wrong.";

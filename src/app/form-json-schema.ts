@@ -141,7 +141,7 @@ export const FORM_JSON_SCHEMA = {
         tabs: {
             type: "array",
             title: "This form's tabs.",
-            default: [],
+            default: [] as any[],
             additionalItems: true,
             items: {
                 anyOf: [
@@ -168,7 +168,7 @@ export const FORM_JSON_SCHEMA = {
                             fieldsets: {
                                 type: "array",
                                 title: "The fieldsets of this tab",
-                                default: [],
+                                default: [] as any[],
                                 additionalItems: true,
                                 items: {
                                     anyOf: [
@@ -195,7 +195,7 @@ export const FORM_JSON_SCHEMA = {
                                                 fields: {
                                                     type: "array",
                                                     title: "The fields of this fieldset",
-                                                    default: [],
+                                                    default: [] as any[],
                                                     additionalItems: true,
                                                     items: {
                                                         anyOf: [
@@ -205,7 +205,7 @@ export const FORM_JSON_SCHEMA = {
                                                             {
                                                                 type: "array",
                                                                 title: "The fields of this fieldset",
-                                                                default: [],
+                                                                default: [] as any[],
                                                                 additionalItems: true,
                                                                 items: {
                                                                     anyOf: [

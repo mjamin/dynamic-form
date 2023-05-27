@@ -1,8 +1,8 @@
-import { startWith, tap, map } from "rxjs/operators";
-import { QueryList, ContentChildren, Directive, Input, ChangeDetectorRef, AfterContentInit } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
+import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, Input, QueryList } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { MatLegacyCheckbox as MatCheckbox } from "@angular/material/legacy-checkbox";
+import { map, startWith, tap } from "rxjs/operators";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
@@ -97,6 +97,10 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     private setDisabled(value: boolean): void {
         this._disabled = coerceBooleanProperty(value);
 
+        if(!this.checkboxes) {
+            return;
+        }
+
         this.checkboxes.forEach(checkbox => {
             checkbox.disabled = value;
         });
@@ -105,6 +109,10 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     }
 
     private updateCheckboxes(): void {
+        if(!this.checkboxes) {
+            return;
+        }
+        
         this.checkboxes.forEach(checkbox => {
             checkbox.checked = Array.isArray(this._value) && this._value.includes(checkbox.value);
         });
