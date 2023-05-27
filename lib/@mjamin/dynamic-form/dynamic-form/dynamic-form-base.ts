@@ -1,6 +1,6 @@
 import { tap, distinctUntilChanged, startWith } from "rxjs/operators";
 import { Input, Output, ChangeDetectorRef, OnDestroy, ViewChild, EventEmitter, Directive, ViewChildren, QueryList, AfterViewInit } from "@angular/core";
-import { FormGroup, FormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators, ValidatorFn, FormGroupDirective } from "@angular/forms";
 
 import { withSubscriptionSink } from "@mjamin/common";
 
@@ -23,7 +23,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
     @Output() formEvents = new EventEmitter<DynamicFormEvent>();
 
-    formGroup = new FormGroup({});
+    formGroup = new UntypedFormGroup({});
 
     constructor(private _cdr: ChangeDetectorRef) {
         super();
@@ -182,7 +182,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     }
 
     private addFormControl(id: string, field: MjDynamicFormSchemaField): void {
-        this.formGroup.registerControl(id, new FormControl(field.defaultValue, this.getValidators(field)));
+        this.formGroup.registerControl(id, new UntypedFormControl(field.defaultValue, this.getValidators(field)));
     }
 
     private updateFormControl(id: string, field: MjDynamicFormSchemaField): void {

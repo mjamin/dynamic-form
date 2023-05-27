@@ -1,6 +1,6 @@
 import { tap, startWith, delay, map, distinctUntilChanged } from "rxjs/operators";
 import { Component, AfterViewInit, ChangeDetectorRef, ViewEncapsulation, ViewChild } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 import { SplitComponent } from "angular-split";
 
 import { withSubscriptionSink } from "@mjamin/common";
@@ -21,7 +21,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
 
     @ViewChild("hsplit") hSplitComponent: SplitComponent;
 
-    editorFormControl = new FormControl(this.load("form-schema", EXAMPLE_FORM));
+    editorFormControl = new UntypedFormControl(this.load("form-schema", EXAMPLE_FORM));
     editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
     formController = new MjDynamicFormController();
     hasErrors = false;

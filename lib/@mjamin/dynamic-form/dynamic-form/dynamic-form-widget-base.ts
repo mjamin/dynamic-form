@@ -1,12 +1,12 @@
 import { ViewChild, Directive } from "@angular/core";
-import { FormGroup, FormControl, FormControlName } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, FormControlName } from "@angular/forms";
 
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 
 @Directive()
 export abstract class MjDynamicFormWidgetBase {
-    private _form: FormGroup;
-    private _control: FormControl;
+    private _form: UntypedFormGroup;
+    private _control: UntypedFormControl;
     private _fieldAccessor: () => MjDynamicFormSchemaField;
 
     @ViewChild(FormControlName, { static: false }) formControlName: FormControlName;
@@ -23,11 +23,11 @@ export abstract class MjDynamicFormWidgetBase {
         return this.field.validators && this.field.validators.required === true;
     }
 
-    get control(): FormControl {
+    get control(): UntypedFormControl {
         return this._control;
     }
 
-    get form(): FormGroup {
+    get form(): UntypedFormGroup {
         return this._form;
     }
 
@@ -56,8 +56,8 @@ export abstract class MjDynamicFormWidgetBase {
     }
 
     /** @internal */
-    _setForm(form: FormGroup): void {
+    _setForm(form: UntypedFormGroup): void {
         this._form = form;
-        this._control = form.get(this.field.id) as FormControl;
+        this._control = form.get(this.field.id) as UntypedFormControl;
     }
 }

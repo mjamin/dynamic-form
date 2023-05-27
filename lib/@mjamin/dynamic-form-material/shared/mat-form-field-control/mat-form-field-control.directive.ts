@@ -1,7 +1,7 @@
 import { Observable, Subject, merge } from "rxjs";
 import { tap, startWith } from "rxjs/operators";
 import { Directive, OnDestroy, Optional, Self, ElementRef, HostBinding, Input, Output, EventEmitter, OnInit, DoCheck } from "@angular/core";
-import { NgControl, FormControl, NgForm, FormGroupDirective } from "@angular/forms";
+import { NgControl, UntypedFormControl, NgForm, FormGroupDirective } from "@angular/forms";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ErrorStateMatcher } from "@angular/material/core";
@@ -155,7 +155,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
         const oldState = this.errorState;
         const parent = this._parentFormGroup || this._parentForm;
         const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const control = this.ngControl ? this.ngControl.control as FormControl : null;
+        const control = this.ngControl ? this.ngControl.control as UntypedFormControl : null;
         const newState = matcher.isErrorState(control, parent);
 
         if (newState !== oldState) {

@@ -1,5 +1,5 @@
 import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, DoCheck, ChangeDetectionStrategy } from "@angular/core";
-import { FormGroup, ValidatorFn, FormControl } from "@angular/forms";
+import { UntypedFormGroup, ValidatorFn, UntypedFormControl } from "@angular/forms";
 import { CdkPortalOutlet } from "@angular/cdk/portal";
 
 import { NamedPortalService, NamedPortalServiceContext } from "../core/named-portals";
@@ -24,7 +24,7 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
 
     @Input() field: MjDynamicFormSchemaField;
-    @Input() form: FormGroup;
+    @Input() form: UntypedFormGroup;
 
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
          this._formWidgets = namedPortalService.for("dynamic-form-widgets");
@@ -36,7 +36,7 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
             : null;
     }
 
-    get control(): FormControl {
+    get control(): UntypedFormControl {
         return this._componentRef && this._componentRef.instance.control;
     }
 
