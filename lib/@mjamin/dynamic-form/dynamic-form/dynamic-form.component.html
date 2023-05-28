@@ -4,7 +4,7 @@
     </div>
     <div *ngFor="let t of schema.tabs; let i = index; trackBy: trackByIdFn" [hidden]="!isSelectedTab(schema, t, i)">
         <fieldset *ngFor="let fs of t.fieldsets; trackBy: trackByIdFn">
-            <label>{{fs.label}}</label>
+            <legend>{{fs.label}}</legend>
             <div class="df-widgets-container">
                 <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
             </div>
