@@ -2,11 +2,14 @@
     display: block;
 }
 
-.mat-card-title {
-    padding-bottom: 6px;
+.mat-mdc-card-title {
     font-size: 18px
 }
 
-.mat-card ~ .mat-card {
+.mat-mdc-card-header {
+    padding-bottom: 16px;
+}
+
+.mat-mdc-card ~ .mat-card {
     margin-top: 16px;
 }

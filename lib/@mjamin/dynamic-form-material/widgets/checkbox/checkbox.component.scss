@@ -3,21 +3,9 @@ mj-dynamic-form-widget-checkbox-group {
     flex-flow: row wrap;
     margin: -8px;
 
-    > .mat-checkbox {
-        margin: 0;
+    > .mat-mdc-checkbox {
         padding: 8px;
         flex: 0 0 auto;
-        box-sizing: border-box;
-        min-width: 0;
-
-        label {
-            max-width: 100%;
-
-            .mat-checkbox-label {
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
     }
 }
 

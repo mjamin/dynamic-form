@@ -3,7 +3,7 @@ import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { Directive, DoCheck, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Optional, Output, Self } from "@angular/core";
 import { FormGroupDirective, NgControl, NgForm, UntypedFormControl } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { MatLegacyFormFieldControl as MatFormFieldControl } from "@angular/material/legacy-form-field";
+import { MatFormFieldControl } from "@angular/material/form-field";
 import { Observable, Subject, merge } from "rxjs";
 import { startWith, tap } from "rxjs/operators";
 
@@ -29,14 +29,14 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
     private _stateChangesSubject = new Subject<void>();
     private _placeholder: string;
-    private _required: boolean;
+    private _required: boolean = false;
     private _controlType: string;
     private _shouldLabelFloat: boolean;
-    private _errorState: boolean;
-    private _focused: boolean;
-    private _empty: boolean;
-    private _autofilled: boolean;
-    private _disabled: boolean;
+    private _errorState: boolean = false;
+    private _focused: boolean = false;
+    private _empty: boolean = false;
+    private _autofilled: boolean = false;
+    private _disabled: boolean = false;
     private _describedBy: string;
 
     @Output()
@@ -103,7 +103,6 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
         this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             this.focused = !!focusOrigin;
-            this._stateChangesSubject.next();
         });
     }
 
@@ -115,11 +114,17 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
         this.mjMatFormFieldControlContainerClick.emit(event);
     }
 
+    ngDoCheck(): void {
+        if (this.ngControl) {
+            this.updateErrorState();
+        }
+    }
+
     ngOnInit(): void {
         if (this.ngControl.control) {
             const valueChanges$ = this.ngControl.valueChanges.pipe(
                 tap(value => {
-                    this.empty = value == null || value.length === 0;
+                    this._empty = value == null || value.length === 0;
                 })
             );
 
@@ -127,7 +132,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
                 startWith(this.ngControl.status),
                 tap(status => {
                     if (status === "ENABLED" || status === "DISABLED") {
-                        this.disabled = this.ngControl.disabled;
+                        this._disabled = this.ngControl.disabled;
                     }
                 })
             );
@@ -143,12 +148,6 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
     override ngOnDestroy(): void {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._stateChangesSubject.complete();
-    }
-
-    ngDoCheck(): void {
-        if (this.ngControl) {
-            this.updateErrorState();
-        }
     }
 
     private updateErrorState(): void {

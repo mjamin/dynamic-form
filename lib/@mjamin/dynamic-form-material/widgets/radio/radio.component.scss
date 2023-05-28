@@ -3,20 +3,8 @@ mat-radio-group {
     flex-flow: row wrap;
     margin: -8px;
 
-    > .mat-radio-button {
-        margin: 0;
+    > .mat-mdc-radio-button {
         padding: 8px;
         flex: 0 0 auto;
-        box-sizing: border-box;
-        min-width: 0;
-
-        label {
-            max-width: 100%;
-
-            .mat-radio-label {
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
     }
 }

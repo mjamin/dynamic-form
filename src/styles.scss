@@ -1,18 +1,11 @@
 @use '@angular/material' as mat;
 @import "@angular/material/theming";
+@import "../lib/@mjamin/dynamic-form-material/styles.scss";
 
-$custom-typography: mat.define-legacy-typography-config($body-1: mat.define-typography-level(16px, 24px, 500));
+$custom-typography: mat.define-typography-config($body-2: mat.define-typography-level(16px, 24px, 500));
 
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy($custom-typography);`
-@include mat.all-legacy-component-typographies($custom-typography);
-@include mat.legacy-core();
+@include mat.all-component-typographies($custom-typography);
+@include mat.core();
 
 $candy-app-primary: mat.define-palette(mat.$indigo-palette);
 $candy-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
@@ -22,7 +15,7 @@ $candy-app-theme: mat.define-light-theme((color: (primary: $candy-app-primary,
                 accent: $candy-app-accent,
                 warn: $candy-app-warn )));
 
-@include mat.all-legacy-component-themes($candy-app-theme);
+@include mat.all-component-themes($candy-app-theme);
 
 html,
 body {
@@ -67,22 +60,6 @@ mj-dynamic-form {
 
             &~.df-tab {
                 margin-left: 16px;
-            }
-        }
-    }
-}
-
-.mj-dynamic-form-widget {
-    &.mj-dynamic-form-widget-no-label {
-        .mat-form-field-appearance-fill {
-            .mat-form-field-infix {
-                border-top-width: 0;
-            }
-        }
-
-        .mat-form-field-appearance-outline {
-            .mat-form-field-infix {
-                border-top-width: .25em;
             }
         }
     }

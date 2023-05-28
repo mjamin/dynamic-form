@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, Input, QueryList } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { MatLegacyCheckbox as MatCheckbox } from "@angular/material/legacy-checkbox";
+import { MatCheckbox } from "@angular/material/checkbox";
 import { map, startWith, tap } from "rxjs/operators";
 
 import { withSubscriptionSink } from "@mjamin/common";

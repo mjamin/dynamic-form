@@ -1,15 +1,19 @@
 <form *ngIf="schema" [formGroup]="formGroup">
-    <nav mat-tab-nav-bar *ngIf="schema.tabs && (schema.tabs.length == 1 && schema.tabs[0].label || schema.tabs.length > 1)" style="margin-bottom: 8px">
+    <nav mat-tab-nav-bar *ngIf="schema.tabs && (schema.tabs.length == 1 && schema.tabs[0].label || schema.tabs.length > 1)" [tabPanel]="tabPanel" style="margin-bottom: 8px">
         <div mat-tab-link *ngFor="let tab of schema.tabs; let i = index; trackBy: trackByIdFn" [id]="tab.id" [active]="isSelectedTab(schema, tab, i)" (click)="selectTab(tab)">{{tab.label}}</div>
     </nav>
-    <div *ngFor="let t of schema.tabs; let i = index; trackBy: trackByIdFn" [hidden]="!isSelectedTab(schema, t, i)">
-        <mat-card *ngFor="let fs of t.fieldsets; trackBy: trackByIdFn">
-            <mat-card-title *ngIf="fs.label">{{fs.label}}</mat-card-title>
-            <mat-card-content>
-                <div class="df-widgets-container">
-                    <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
+    <mat-tab-nav-panel #tabPanel>
+        <div *ngFor="let t of schema.tabs; let i = index; trackBy: trackByIdFn" [hidden]="!isSelectedTab(schema, t, i)">
+            <mat-card *ngFor="let fs of t.fieldsets; trackBy: trackByIdFn">
+                <mat-card-header>
+                    <mat-card-title *ngIf="fs.label">{{fs.label}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="df-widgets-container">
+                        <df-widget-container *ngFor="let f of fs.fields; trackBy: trackByIdAndTypeFn" [field]="f" [form]="formGroup"></df-widget-container>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-tab-nav-panel>
 </form>
