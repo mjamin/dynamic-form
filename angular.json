@@ -26,7 +26,11 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco/" },
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/monaco-editor",
+                                "output": "/assets/monaco/"
+                            },
                             "src/favicon.ico",
                             "src/assets"
                         ],
@@ -96,11 +100,24 @@
                         ],
                         "scripts": []
                     }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "lib/**/*.ts",
+                            "src/**/*.ts",
+                            "src/**/*.html"
+                        ]
+                    }
                 }
             }
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false,
+        "schematicCollections": [
+            "@angular-eslint/schematics"
+        ]
     }
 }
