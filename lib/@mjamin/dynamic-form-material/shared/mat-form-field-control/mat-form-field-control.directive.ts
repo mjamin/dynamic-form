@@ -147,7 +147,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
         }
     }
 
-    override ngOnDestroy(): void {
+    ngOnDestroy(): void {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._stateChangesSubject.complete();
     }

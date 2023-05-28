@@ -104,8 +104,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck(true);
     }
 
-    override ngOnDestroy(): void {
-        super.ngOnDestroy();
+    ngOnDestroy(): void {
         this._controller.detach();
     }
 
