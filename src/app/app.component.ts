@@ -100,8 +100,10 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         let schema: MjDynamicFormSchema = null;
         try {
             schema = JSON.parse(value);
-        } catch (error: any) {
-            console.log(error.message);
+        } catch (error) {
+            if(error instanceof Error) {
+                console.log(error.message);
+            }
         }
         return schema;
     }
@@ -113,7 +115,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
         this._editor.setSelection(selection);
     }
 
-    private save(key: string, value: any): void {
+    private save<T>(key: string, value: T): void {
         localStorage.setItem(key, JSON.stringify(value));
     }
 

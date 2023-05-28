@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const FORM_JSON_SCHEMA = {
     $schema: "http://json-schema.org/draft-07/schema",
     $id: "http://example.com/example.json",

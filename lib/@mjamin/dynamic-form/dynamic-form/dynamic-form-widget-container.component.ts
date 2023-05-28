@@ -20,7 +20,7 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
     imports: [PortalModule]
 })
 export class MjDynamicFormWidgetContainerComponent implements DoCheck {
-    private _formWidgets: NamedPortalServiceContext;
+    private _formWidgets: NamedPortalServiceContext<MjDynamicFormWidgetBase>;
     private _componentRef!: ComponentRef<MjDynamicFormWidgetBase>;
     private _fieldType!: string;
     private _fieldLabel!: string;

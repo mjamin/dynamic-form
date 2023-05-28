@@ -1,10 +1,10 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, Input, QueryList } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { MatCheckbox } from "@angular/material/checkbox";
-import { map, startWith, tap } from "rxjs/operators";
-
 import { withSubscriptionSink } from "@mjamin/common";
+import { map, startWith, tap } from "rxjs/operators";
 
 @Directive({
     selector: "mj-dynamic-form-widget-checkbox-group",
@@ -15,10 +15,10 @@ import { withSubscriptionSink } from "@mjamin/common";
     standalone: true
 })
 export class CheckboxGroupDirective extends withSubscriptionSink() implements ControlValueAccessor, AfterContentInit {
-    private _value: any[] = null;
+    private _value: string[] = null;
     private _disabled: boolean;
-    private _onChange: (value: any) => any = () => {};
-    private _onTouched: () => any = () => {};
+    private _onChange: (value: string[]) => void = null;
+    private _onTouched: () => void = null;
 
     // tslint:disable-next-line: member-ordering
     @ContentChildren(MatCheckbox, { descendants: true }) checkboxes: QueryList<MatCheckbox>;
@@ -28,23 +28,23 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     }
 
     @Input()
-    get value(): any[] { return this._value; }
-    set value(value: any[]) { this.setValue(value); }
+    get value(): string[] { return this._value; }
+    set value(value: string[]) { this.setValue(value); }
 
     @Input()
     get disabled(): boolean { return this._disabled; }
     set disabled(value) { this.setDisabled(value); }
 
-    writeValue(obj: any): void {
+    writeValue(obj: string[]): void {
         this.setValue(obj, true, false);
         this._cdr.markForCheck();
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: (value: string[]) => void): void {
         this._onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this._onTouched = fn;
     }
 
@@ -71,7 +71,11 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
         this.subscribe(checkboxes$.pipe(
             tap((checkboxes: MatCheckbox[]) => {
                 for (const checkbox of checkboxes) {
-                    checkbox.registerOnTouched(() => { this._onTouched(); });
+                    checkbox.registerOnTouched(() => {
+                        if(this._onTouched) {
+                            this._onTouched();
+                        }
+                    });
                 }
             })
         ));
@@ -79,7 +83,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
         this.updateCheckboxes();
     }
 
-    private setValue(value: any, updateCheckboxes: boolean = true, emitEvent = true): void {
+    private setValue(value: string[], updateCheckboxes = true, emitEvent = true): void {
         if (this._value === value) {
             return;
         }

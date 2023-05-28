@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormGroupDirective, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from "@angular/forms";
@@ -135,10 +136,12 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         ));
     }
 
+    // TODO(fix no-explicit-any)
     trackByIdFn(_: number, item: any): any {
         return item.id || item;
     }
 
+    // TODO(fix no-explicit-any)
     trackByIdAndTypeFn(_: number, item: any): any {
         if (item.id && item.type) {
             return `${item.id}-${item.type}`;
@@ -202,10 +205,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     }
 
     private removeFormControl(id: string): void {
-        // Remove control without emitting an event. Sadly, there's no unregisterControl method.
-        // see: https://github.com/angular/angular/issues/29662
-        (this.formGroup.controls[id] as any)._registerOnCollectionChange(() => {});
-        delete this.formGroup.controls[id];
+        this.formGroup.removeControl(id, { emitEvent: false});
     }
 
     private getValidators(field: MjDynamicFormSchemaField): ValidatorFn[] {
@@ -224,9 +224,11 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
                 if (field.validators["requiredTrue"] === true) { validators.push(Validators.requiredTrue); }
                 break;
             case "minlength":
+                // TODO(fix no-explicit-any)
                 validators.push(Validators.minLength((field.validators[name] as any).length || 0));
                 break;
             case "maxlength":
+                // TODO(fix no-explicit-any)
                 validators.push(Validators.maxLength((field.validators[name] as any).length || 0));
                 break;
                 // ...

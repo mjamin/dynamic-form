@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable, ReplaySubject, Subscription } from "rxjs";
 import { map, tap } from "rxjs/operators";
 

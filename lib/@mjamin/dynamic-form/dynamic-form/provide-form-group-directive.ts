@@ -7,6 +7,6 @@ export function FORM_GROUP_DIRECTIVE_FACTORY(formComponent: MjDynamicFormBase): 
     return formComponent.formGroupDirective;
 }
 
-export function provideFormGroupDirective(providingType: Type<any>): Provider {
+export function provideFormGroupDirective<T>(providingType: Type<T>): Provider {
     return { provide: FormGroupDirective, useFactory: FORM_GROUP_DIRECTIVE_FACTORY, deps: [[new Self(), providingType]] };
 }

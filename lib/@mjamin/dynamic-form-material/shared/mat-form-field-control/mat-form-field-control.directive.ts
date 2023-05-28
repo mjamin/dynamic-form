@@ -26,7 +26,7 @@ import { withSubscriptionSink } from "@mjamin/common";
     ],
     standalone: true
 })
-export class MjMatFormFieldControlDirective extends withSubscriptionSink() implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
+export class MjMatFormFieldControlDirective<T> extends withSubscriptionSink() implements MatFormFieldControl<T>, OnDestroy, OnInit, DoCheck {
     private static _uniqueId = 0;
 
     private _stateChangesSubject = new Subject<void>();
@@ -91,7 +91,7 @@ export class MjMatFormFieldControlDirective extends withSubscriptionSink() imple
 
     get stateChanges(): Observable<void> { return this._stateChangesSubject.asObservable(); }
 
-    get value(): any { return this.ngControl.value; }
+    get value(): T { return this.ngControl.value; }
 
     constructor(
         private _defaultErrorStateMatcher: ErrorStateMatcher,
