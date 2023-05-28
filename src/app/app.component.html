@@ -1,28 +1,33 @@
-<as-split #hsplit [gutterSize]="9" direction="horizontal">
-    <as-split-area id="code-area" [size]="38.2">
-        <ngx-monaco-editor [options]="editorOptions" [formControl]="editorFormControl" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
+<as-split #hsplit
+          direction="horizontal"
+          [gutterSize]="9">
+    <as-split-area id="code-area"
+                   [size]="38.2">
+        <ngx-monaco-editor [options]="editorOptions"
+                           [formControl]="editorFormControl"
+                           (onInit)="onEditorInit($event)"/>
     </as-split-area>
-    <as-split-area id="form-area" [size]="61.8">
-        <as-split [gutterSize]="9" direction="vertical">
-            <as-split-area id="code-area" [size]="85.41">
+    <as-split-area id="form-area"
+                   [size]="61.8">
+        <as-split direction="vertical"
+                  [gutterSize]="9">
+            <as-split-area id="code-area"
+                           [size]="85.41">
                 <mat-toolbar color="primary">
                     <span>{{formController.title | async}}</span>
-                    <button mat-icon-button (click)="onSave($event)" style="margin-left: auto"><mat-icon>save_outline</mat-icon></button>
-                    <button mat-icon-button (click)="onReset()"><mat-icon>refresh</mat-icon></button>
-                    <button mat-icon-button (click)="onDelete()"><mat-icon>delete_outline</mat-icon></button>
-                    <button mat-icon-button (click)="onLoad()"><mat-icon>text_snippet</mat-icon></button>
-                    <ng-container *mjAsync="let valid of formController.valid">
-                        <button mat-icon-button [color]="!valid ? 'warn' : ''">
-                            <mat-icon *ngIf="valid">check</mat-icon>
-                            <mat-icon *ngIf="!valid">error_outline</mat-icon>
-                        </button>
-                    </ng-container>
+                    <app-app-form-actions [valid]="formController.valid | async"
+                                          (save)="onSave($event)"
+                                          (reset)="onReset()"
+                                          (delete)="onDelete()"
+                                          (load)="onLoad()"/>
                 </mat-toolbar>
-                <div id="form-area-form-container" [class.disabled]="hasErrors">
-                    <mj-dynamic-card-form [controller]="formController" ></mj-dynamic-card-form>
+                <div id="form-area-form-container"
+                     [class.disabled]="hasErrors">
+                    <mj-dynamic-card-form [controller]="formController"/>
                 </div>
             </as-split-area>
-            <as-split-area id="value-area" [size]="14.59">
+            <as-split-area id="value-area"
+                           [size]="14.59">
                 <pre>{{values | async}}</pre>
             </as-split-area>
         </as-split>

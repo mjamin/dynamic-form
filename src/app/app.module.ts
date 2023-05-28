@@ -12,10 +12,12 @@ import { AngularSplitModule } from 'angular-split';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { AppComponent } from './app.component';
 import { MONACO_EDITOR_CONFIG } from './monaco-config';
+import { AppFormActionsComponent } from './app-form-actions/app-form-actions.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        AppFormActionsComponent
     ],
     imports: [
         BrowserModule,

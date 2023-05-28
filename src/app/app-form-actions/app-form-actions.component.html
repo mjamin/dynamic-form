@@ -1,0 +1,13 @@
+<button mat-icon-button
+        (click)="save.emit($event)"><mat-icon>save_outline</mat-icon></button>
+<button mat-icon-button
+        (click)="reset.emit()"><mat-icon>refresh</mat-icon></button>
+<button mat-icon-button
+        (click)="delete.emit()"><mat-icon>delete_outline</mat-icon></button>
+<button mat-icon-button
+        (click)="load.emit()"><mat-icon>text_snippet</mat-icon></button>
+<button mat-icon-button
+        [color]="!valid ? 'warn' : ''">
+    <mat-icon *ngIf="valid">check</mat-icon>
+    <mat-icon *ngIf="!valid">error_outline</mat-icon>
+</button>
