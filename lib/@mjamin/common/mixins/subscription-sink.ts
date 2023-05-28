@@ -1,6 +1,6 @@
-import { Observable, Subscription } from "rxjs";
+/* eslint-disable @typescript-eslint/ban-types */
 import { OnDestroy } from "@angular/core";
-
+import { Observable, Subscription } from "rxjs";
 import { Constructor } from "../constructor";
 
 export interface HasSubscriptionSink extends OnDestroy {

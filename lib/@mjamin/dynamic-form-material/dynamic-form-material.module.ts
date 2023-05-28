@@ -1,27 +1,18 @@
-import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
-
-import { MjDynamicFormModule, provideFormWidgets } from "@mjamin/dynamic-form";
-
-import { CheckboxComponent } from "./widgets/checkbox/checkbox.component";
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { provideFormWidgets } from "@mjamin/dynamic-form";
+import { MjCardFormComponent } from "./forms/card-form.component";
 import { CheckboxGroupDirective } from "./widgets/checkbox/checkbox-group.directive";
+import { CheckboxComponent } from "./widgets/checkbox/checkbox.component";
+import { HtmlComponent } from "./widgets/html/html.component";
 import { RadioComponent } from "./widgets/radio/radio.component";
 import { SelectComponent } from "./widgets/select/select.component";
-import { TextareaComponent } from "./widgets/textarea/textarea.component";
 import { TextComponent } from "./widgets/text/text.component";
-import { HtmlComponent } from "./widgets/html/html.component";
-import { MaterialModule } from "./material.module";
-import { MjCardFormComponent } from "./forms/card-form.component";
-import { MjMatFormFieldControlModule } from "./shared/mat-form-field-control/mat-form-field-control.module";
+import { TextareaComponent } from "./widgets/textarea/textarea.component";
 
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
-        MjDynamicFormModule,
-        MjMatFormFieldControlModule
-    ],
-    declarations: [
         CheckboxComponent,
         CheckboxGroupDirective,
         RadioComponent,
@@ -31,7 +22,6 @@ import { MjMatFormFieldControlModule } from "./shared/mat-form-field-control/mat
         MjCardFormComponent
     ],
     exports: [
-        MjMatFormFieldControlModule,
         MjCardFormComponent
     ]
 })

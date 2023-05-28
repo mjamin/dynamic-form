@@ -1,4 +1,6 @@
-import { CdkPortalOutlet } from "@angular/cdk/portal";
+/* eslint-disable @angular-eslint/no-host-metadata-property */
+/* eslint-disable @angular-eslint/component-selector */
+import { CdkPortalOutlet, PortalModule } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, Component, ComponentRef, DoCheck, Input, ViewChild, ViewContainerRef } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from "@angular/forms";
 
@@ -8,12 +10,14 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 
 @Component({
     selector: "df-widget-container",
-    template: `<ng-template cdkPortalOutlet></ng-template>`,
+    template: "<ng-template cdkPortalOutlet></ng-template>",
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         "[style.flex-basis.%]": "field.width || field.space",
         "[style.margin-right.%]": "totalWidth"
-    }
+    },
+    standalone: true,
+    imports: [PortalModule]
 })
 export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext;
@@ -27,7 +31,7 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     @Input() form!: UntypedFormGroup;
 
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
-         this._formWidgets = namedPortalService.for("dynamic-form-widgets");
+        this._formWidgets = namedPortalService.for("dynamic-form-widgets");
     }
 
     get rawValidator(): ValidatorFn {

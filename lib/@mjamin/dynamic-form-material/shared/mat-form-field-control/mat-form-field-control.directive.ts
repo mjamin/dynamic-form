@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { Directive, DoCheck, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Optional, Output, Self } from "@angular/core";
@@ -22,31 +23,32 @@ import { withSubscriptionSink } from "@mjamin/common";
     exportAs: "mjMatFormFieldControl",
     providers: [
         { provide: MatFormFieldControl, useExisting: MjMatFormFieldControlDirective }
-    ]
+    ],
+    standalone: true
 })
 export class MjMatFormFieldControlDirective extends withSubscriptionSink() implements MatFormFieldControl<any>, OnDestroy, OnInit, DoCheck {
     private static _uniqueId = 0;
 
     private _stateChangesSubject = new Subject<void>();
     private _placeholder: string;
-    private _required: boolean = false;
+    private _required = false;
     private _controlType: string;
     private _shouldLabelFloat: boolean;
-    private _errorState: boolean = false;
-    private _focused: boolean = false;
-    private _empty: boolean = false;
-    private _autofilled: boolean = false;
-    private _disabled: boolean = false;
+    private _errorState = false;
+    private _focused = false;
+    private _empty = false;
+    private _autofilled = false;
+    private _disabled = false;
     private _describedBy: string;
 
     @Output()
-    mjMatFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
+        mjMatFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
 
     @HostBinding()
-    id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
+        id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
 
     @Input()
-    errorStateMatcher: ErrorStateMatcher;
+        errorStateMatcher: ErrorStateMatcher;
 
     @Input()
     get required(): boolean { return this._required; }

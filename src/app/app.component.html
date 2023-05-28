@@ -16,10 +16,10 @@
                 <mat-toolbar color="primary">
                     <span>{{formController.title | async}}</span>
                     <app-app-form-actions [valid]="formController.valid | async"
-                                          (save)="onSave($event)"
-                                          (reset)="onReset()"
-                                          (delete)="onDelete()"
-                                          (load)="onLoad()"/>
+                                          (saveForm)="onSave($event)"
+                                          (resetForm)="onReset()"
+                                          (deleteForm)="onDelete()"
+                                          (loadForm)="onLoad()"/>
                 </mat-toolbar>
                 <div id="form-area-form-container"
                      [class.disabled]="hasErrors">

@@ -1,5 +1,5 @@
+import { Provider, Self, Type } from "@angular/core";
 import { FormGroupDirective } from "@angular/forms";
-import { Provider, Type, Self } from "@angular/core";
 
 import { MjDynamicFormBase } from "./dynamic-form-base";
 

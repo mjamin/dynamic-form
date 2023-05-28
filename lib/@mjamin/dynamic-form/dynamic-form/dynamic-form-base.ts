@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormGroupDirective, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from "@angular/forms";
 import { distinctUntilChanged, startWith, tap } from "rxjs/operators";
@@ -37,7 +38,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     get schema(): MjDynamicFormSchema { return this._schema; }
     set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
 
-    markForCheck(markFields: boolean = false): void {
+    markForCheck(markFields = false): void {
         if (markFields) {
             this._widgetContainers.forEach(c => c.markForCheck());
         }
@@ -45,7 +46,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this._cdr.markForCheck();
     }
 
-    setSchema(schema: MjDynamicFormSchema, emitEvent: boolean = true): void {
+    setSchema(schema: MjDynamicFormSchema, emitEvent = true): void {
         this._schema = schema;
 
         this.updateFormGroup(schema);
@@ -57,7 +58,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck();
     }
 
-    setValues(values: {[key: string]: any}, emitEvent: boolean = true): void {
+    setValues(values: {[key: string]: any}, emitEvent = true): void {
         this.formGroup.setValue(values);
 
         if (emitEvent === true) {
@@ -217,18 +218,18 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
 
         for (const name of Object.keys(field.validators)) {
             switch (name) {
-                case "required":
-                    if (field.validators["required"] === true) { validators.push(Validators.required); }
-                    break;
-                case "requiredTrue":
-                    if (field.validators["requiredTrue"] === true) { validators.push(Validators.requiredTrue); }
-                    break;
-                case "minlength":
-                    validators.push(Validators.minLength((field.validators[name] as any).length || 0));
-                    break;
-                case "maxlength":
-                    validators.push(Validators.maxLength((field.validators[name] as any).length || 0));
-                    break;
+            case "required":
+                if (field.validators["required"] === true) { validators.push(Validators.required); }
+                break;
+            case "requiredTrue":
+                if (field.validators["requiredTrue"] === true) { validators.push(Validators.requiredTrue); }
+                break;
+            case "minlength":
+                validators.push(Validators.minLength((field.validators[name] as any).length || 0));
+                break;
+            case "maxlength":
+                validators.push(Validators.maxLength((field.validators[name] as any).length || 0));
+                break;
                 // ...
             }
         }

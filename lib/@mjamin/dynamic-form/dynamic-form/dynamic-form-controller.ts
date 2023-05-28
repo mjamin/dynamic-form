@@ -1,9 +1,9 @@
-import { Subscription, Observable, ReplaySubject } from "rxjs";
-import { tap, map } from "rxjs/operators";
+import { Observable, ReplaySubject, Subscription } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
+import { DynamicFormEvent, FormInitializedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormValueChangedEvent } from "./dynamic-form-event";
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { MjDynamicFormSchema } from "./dynamic-form-schema";
-import { FormValueChangedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, DynamicFormEvent, FormInitializedEvent } from "./dynamic-form-event";
 
 export class MjDynamicFormController {
     private _attached: boolean;

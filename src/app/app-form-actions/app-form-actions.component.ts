@@ -1,17 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
-  selector: 'app-app-form-actions',
-  templateUrl: './app-form-actions.component.html',
-  styleUrls: ['./app-form-actions.component.scss']
+    selector: "app-app-form-actions",
+    templateUrl: "./app-form-actions.component.html",
+    styleUrls: ["./app-form-actions.component.scss"],
+    standalone: true,
+    imports: [MatButtonModule, MatIconModule, NgIf]
 })
 export class AppFormActionsComponent {
     @Input() valid = false;
 
     @Input() test: number;
 
-    @Output() save = new EventEmitter<Event>();
-    @Output() reset = new EventEmitter<void>();
-    @Output() delete = new EventEmitter<void>();
-    @Output() load = new EventEmitter<void>();
+    @Output() saveForm = new EventEmitter<Event>();
+    @Output() resetForm = new EventEmitter<void>();
+    @Output() deleteForm = new EventEmitter<void>();
+    @Output() loadForm = new EventEmitter<void>();
 }

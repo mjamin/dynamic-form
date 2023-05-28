@@ -1,5 +1,5 @@
-import { Injector, InjectionToken, Provider, Inject, TemplateRef, EmbeddedViewRef, ComponentRef, Injectable } from "@angular/core";
-import { ComponentType, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal } from "@angular/cdk/portal";
+import { CdkPortalOutlet, ComponentPortal, ComponentType, PortalInjector, TemplatePortal } from "@angular/cdk/portal";
+import { ComponentRef, EmbeddedViewRef, Inject, Injectable, InjectionToken, Injector, Provider, TemplateRef } from "@angular/core";
 
 export declare type NamedPortals = {[key: string]: ComponentType<any>};
 
@@ -35,7 +35,7 @@ export class NamedPortalServiceContext {
 
     attachTemplate(templateRef: TemplateRef<any>, outlet: CdkPortalOutlet, context: any): EmbeddedViewRef<any> {
         if (outlet.hasAttached()) {
-            throw new Error(`Outlet has already a template attached.`);
+            throw new Error("Outlet has already a template attached.");
         }
 
         return outlet.attachTemplatePortal(new TemplatePortal<any>(templateRef, null, context));
@@ -43,7 +43,7 @@ export class NamedPortalServiceContext {
 
     attachComponent(component: string | ComponentType<any>, outlet: CdkPortalOutlet, injector: Injector = null, customTokens: [any, any][] = []): ComponentRef<any> {
         if (outlet.hasAttached()) {
-            throw new Error(`Outlet has already a component attached.`);
+            throw new Error("Outlet has already a component attached.");
         }
 
         const componentType = typeof component === "string"

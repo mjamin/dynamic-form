@@ -11,7 +11,8 @@ import { withSubscriptionSink } from "@mjamin/common";
     exportAs: "dfCheckboxGroup",
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: CheckboxGroupDirective, multi: true }
-    ]
+    ],
+    standalone: true
 })
 export class CheckboxGroupDirective extends withSubscriptionSink() implements ControlValueAccessor, AfterContentInit {
     private _value: any[] = null;

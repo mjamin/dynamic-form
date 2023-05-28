@@ -1,18 +1,25 @@
+import { AsyncPipe } from "@angular/common";
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from "@angular/core";
-import { UntypedFormControl } from "@angular/forms";
+import { ReactiveFormsModule, UntypedFormControl } from "@angular/forms";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController, MjDynamicFormSchema } from "@mjamin/dynamic-form";
-import { SplitComponent } from "angular-split";
+import { AngularSplitModule, SplitComponent } from "angular-split";
 import type { editor } from "monaco-editor";
+import { MonacoEditorModule } from "ngx-monaco-editor-v2";
 import { Observable, Subject } from "rxjs";
 import { delay, distinctUntilChanged, map, startWith, tap } from "rxjs/operators";
+import { MjCardFormComponent } from "../../lib/@mjamin/dynamic-form-material/forms/card-form.component";
+import { AppFormActionsComponent } from "./app-form-actions/app-form-actions.component";
 import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
 
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [AngularSplitModule, MonacoEditorModule, ReactiveFormsModule, MatToolbarModule, AppFormActionsComponent, MjCardFormComponent, AsyncPipe]
 })
 export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
     private _editor: editor.IEditor;
