@@ -6,6 +6,9 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { withSubscriptionSink } from "@mjamin/common";
 import { map, startWith, tap } from "rxjs/operators";
 
+/**
+ * A directive that automatically provides a ControlValueAccessor around a group of checkboxes.
+ */
 @Directive({
     selector: "mj-dynamic-form-widget-checkbox-group",
     exportAs: "dfCheckboxGroup",
@@ -20,38 +23,56 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     private _onChange: (value: string[]) => void = null;
     private _onTouched: () => void = null;
 
-    // tslint:disable-next-line: member-ordering
+    /**
+     * The checkboxes of this group.
+     */
     @ContentChildren(MatCheckbox, { descendants: true }) checkboxes: QueryList<MatCheckbox>;
 
+    /**
+     * Creates an instance of CheckboxGroupDirective.
+     * 
+     * @param _cdr The change detector reference.
+     */
     constructor(private _cdr: ChangeDetectorRef) {
         super();
     }
 
+    /**
+     * The value of this group.
+     */
     @Input()
     get value(): string[] { return this._value; }
     set value(value: string[]) { this.setValue(value); }
 
+    /**
+     * Wether this group is disabled.
+     */
     @Input()
     get disabled(): boolean { return this._disabled; }
     set disabled(value) { this.setDisabled(value); }
 
+    /** @inheritdoc */
     writeValue(obj: string[]): void {
         this.setValue(obj, true, false);
         this._cdr.markForCheck();
     }
 
+    /** @inheritdoc */
     registerOnChange(fn: (value: string[]) => void): void {
         this._onChange = fn;
     }
 
+    /** @inheritdoc */
     registerOnTouched(fn: () => void): void {
         this._onTouched = fn;
     }
 
+    /** @inheritdoc */
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
 
+    /** @inheritdoc */
     ngAfterContentInit(): void {
         const checkboxes$ = this.checkboxes.changes.pipe(
             startWith(this.checkboxes),

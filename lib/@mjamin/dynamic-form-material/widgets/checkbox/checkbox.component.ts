@@ -9,6 +9,8 @@ import { MjMatFormFieldControlDirective } from "../../shared/mat-form-field-cont
 import { CheckboxGroupDirective } from "./checkbox-group.directive";
 
 /**
+ * A dynamic form widget for checkboxes.
+ * 
  * Note that there's some code duplication in the template. This is because having an *ngIf on the MatFormFieldControl leads to errors.
  * Someone ran into similar issues here: https://github.com/angular/components/issues/16209
  * Probably solved as well when/if this issue is addressed: https://github.com/angular/angular/issues/37319

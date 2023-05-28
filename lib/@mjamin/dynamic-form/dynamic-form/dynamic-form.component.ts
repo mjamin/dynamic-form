@@ -6,6 +6,9 @@ import { MjDynamicFormBase } from "./dynamic-form-base";
 import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 import { provideFormGroupDirective } from "./provide-form-group-directive";
 
+/**
+ * A dynamic form.
+ */
 @Component({
     selector: "mj-dynamic-form",
     templateUrl: "./dynamic-form.component.html",

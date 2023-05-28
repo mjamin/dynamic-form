@@ -11,7 +11,7 @@ import { startWith, tap } from "rxjs/operators";
 import { withSubscriptionSink } from "@mjamin/common";
 
 /**
- * Directive that automatically provides a MatFormFieldControl around any ControlValueAccessor,
+ * A directive that automatically provides a MatFormFieldControl around any ControlValueAccessor,
  * This helps make form controls that are not supported by default work together with MatFormField
  * (e.g. radio buttons, checkboxes)
  *
@@ -41,64 +41,119 @@ export class MjMatFormFieldControlDirective<T> extends withSubscriptionSink() im
     private _disabled = false;
     private _describedBy: string;
 
-    @Output()
-        mjMatFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
+    /**
+     * Emits when the container of this control is clicked.
+     */
+    @Output() mjMatFormFieldControlContainerClick = new EventEmitter<MouseEvent>();
 
-    @HostBinding()
-        id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
+    /**
+     * The id of this control.
+     */
+    @HostBinding() id = `mj-mat-form-field-control-${MjMatFormFieldControlDirective._uniqueId++}`;
 
-    @Input()
-        errorStateMatcher: ErrorStateMatcher;
+    /**
+     * The error state matcher used by this control.
+     */
+    @Input() errorStateMatcher: ErrorStateMatcher;
 
+    /**
+     * Wether this control is required.
+     */
     @Input()
     get required(): boolean { return this._required; }
     set required(value: boolean) { this._required = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * Wether this control is disabled.
+     */
     @Input()
     get disabled(): boolean { return this._disabled; }
     set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * The placeholder of this control.
+     */
     @Input("mjMatFormFieldControlPlaceholder")
     get placeholder(): string { return this._placeholder; }
     set placeholder(value: string) { this._placeholder = value; this._stateChangesSubject.next(); }
 
+    /**
+     * The control type of this control.
+     */
     @Input("mjMatFormFieldControlType")
     get controlType(): string { return this._controlType; }
     set controlType(value: string) { this._controlType = value; this._stateChangesSubject.next(); }
 
+    /**
+     * Wether the label of this control should float.
+     */
     @Input("mjMatFormFieldControlShouldLabelFloat")
     get shouldLabelFloat(): boolean { return this._shouldLabelFloat; }
     set shouldLabelFloat(value: boolean) { this._shouldLabelFloat = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * Wether this control is in an error state.
+     */
     @Input("mjMatFormFieldControlErrorState")
     get errorState(): boolean { return this._errorState; }
     set errorState(value: boolean) { this._errorState = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * Wether this control is focused.
+     */
     @Input("mjMatFormFieldControlFocused")
     get focused(): boolean { return this._focused; }
     set focused(value: boolean) { this._focused = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * Wether this control is empty.
+     */
     @Input("mjMatFormFieldControlEmpty")
     get empty(): boolean { return this._empty; }
     set empty(value: boolean) { this._empty = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * Wether this control is autofilled.
+     */
     @Input("mjMatFormFieldControlAutofilled")
     get autofilled(): boolean { return this._autofilled; }
     set autofilled(value: boolean) { this._autofilled = coerceBooleanProperty(value); this._stateChangesSubject.next(); }
 
+    /**
+     * The id of the elements that describe this control.
+     */
     @HostBinding("attr.aria-describedby")
     get describedBy(): string { return this._describedBy; }
 
+    /**
+     * The observable that emits when the state of this control changes.
+     */
     get stateChanges(): Observable<void> { return this._stateChangesSubject.asObservable(); }
 
+    /**
+     * The value of this control.
+     */
     get value(): T { return this.ngControl.value; }
 
+    /**
+     * Creates a new instance of MjMatFormFieldControlDirective.
+     * 
+     * @param _defaultErrorStateMatcher The default error state matcher.
+     * @param _elementRef The element ref.
+     * @param _focusMonitor The focus monitor.
+     * @param _parentForm The parent form.
+     * @param _parentFormGroup The parent form group.
+     * @param ngControl The ng control.
+     */
     constructor(
         private _defaultErrorStateMatcher: ErrorStateMatcher,
         private _elementRef: ElementRef,
         private _focusMonitor: FocusMonitor,
         @Optional() private _parentForm: NgForm,
         @Optional() private _parentFormGroup: FormGroupDirective,
+        /**
+         * The ng control.
+         */
         @Optional() @Self() public ngControl: NgControl
     ) {
         super();
@@ -108,20 +163,32 @@ export class MjMatFormFieldControlDirective<T> extends withSubscriptionSink() im
         });
     }
 
+    /**
+     * Sets the ids of the elements that describe this control.
+     * 
+     * @param ids The ids.
+     */
     setDescribedByIds(ids: string[]): void {
         this._describedBy = ids.join(" ");
     }
 
+    /**
+     * Handles the click on the container of this control.
+     * 
+     * @param event The event.
+     */
     onContainerClick(event: MouseEvent): void {
         this.mjMatFormFieldControlContainerClick.emit(event);
     }
 
+    /** @inheritdoc */
     ngDoCheck(): void {
         if (this.ngControl) {
             this.updateErrorState();
         }
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         if (this.ngControl.control) {
             const valueChanges$ = this.ngControl.valueChanges.pipe(
@@ -147,6 +214,7 @@ export class MjMatFormFieldControlDirective<T> extends withSubscriptionSink() im
         }
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._stateChangesSubject.complete();

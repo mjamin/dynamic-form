@@ -10,6 +10,9 @@ import { SelectComponent } from "./widgets/select/select.component";
 import { TextComponent } from "./widgets/text/text.component";
 import { TextareaComponent } from "./widgets/textarea/textarea.component";
 
+/**
+ * A module for dynamic forms using Angular Material.
+ */
 @NgModule({
     imports: [
         CommonModule,
@@ -26,6 +29,19 @@ import { TextareaComponent } from "./widgets/textarea/textarea.component";
     ]
 })
 export class MjDynamicFormMaterialModule {
+    /**
+     * Creates a module with providers for dynamic forms using Angular Material.
+     * 
+     * Provides the following widgets:
+     * - checkbox
+     * - radio
+     * - select
+     * - textarea
+     * - text
+     * - html
+     * 
+     * @returns A module with providers for dynamic forms using Angular Material.
+     */
     static forRoot(): ModuleWithProviders<MjDynamicFormMaterialModule> {
         return {
             ngModule: MjDynamicFormMaterialModule,

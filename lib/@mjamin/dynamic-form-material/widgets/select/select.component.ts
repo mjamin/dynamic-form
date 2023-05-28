@@ -7,6 +7,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 
+/**
+ * A dynamic form widget for select boxes.
+ */
 @Component({
     selector: "mj-dynamic-form-widget-select",
     templateUrl: "./select.component.html",

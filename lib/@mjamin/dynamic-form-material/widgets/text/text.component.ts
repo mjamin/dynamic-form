@@ -6,6 +6,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 
+/**
+ * A dynamic form widget for text inputs.
+ */
 @Component({
     selector: "mj-dynamic-form-widget-text",
     templateUrl: "./text.component.html",

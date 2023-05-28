@@ -6,6 +6,9 @@ import { DynamicFormEvent, FormInitializedEvent, FormSchemaChangedEvent, FormSta
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { MjDynamicFormSchema } from "./dynamic-form-schema";
 
+/**
+ * A controller for dynamic forms.
+ */
 export class MjDynamicFormController {
     private _attached: boolean;
     private _formRef: DynamicFormRef;
@@ -16,26 +19,48 @@ export class MjDynamicFormController {
     private _valuesSubject = new ReplaySubject<{[key: string]: any}>(1);
     private _schemaSubject = new ReplaySubject<MjDynamicFormSchema>(1);
 
+    /**
+     * The title of the form.
+     */
     get title(): Observable<string> {
         return this._schemaSubject.asObservable().pipe(map(s => s.title));
     }
 
+    /**
+     * An observable of the values.
+     */
     get values(): Observable<{[key: string]: any}> {
         return this._valuesSubject.asObservable();
     }
 
+    /**
+     * An observable of the valid state.
+     */
     get valid(): Observable<boolean> {
         return this._validSubject.asObservable();
     }
 
+    /**
+     * Submits the form.
+     * 
+     * @param event The event.
+     */
     submit(event: Event): void {
         this._formRef.submit(event);
     }
 
+    /**
+     * Resets the form.
+     */
     reset(): void {
         this._formRef.reset();
     }
 
+    /**
+     * Sets the values.
+     * 
+     * @param values The values.
+     */
     setValues(values: {[key: string]: any}): void {
         this._values = values;
 
@@ -46,6 +71,11 @@ export class MjDynamicFormController {
         this._valuesSubject.next(values);
     }
 
+    /**
+     * Sets the schema.
+     * 
+     * @param schema The schema.
+     */
     setSchema(schema: MjDynamicFormSchema): void {
         this._schema = schema;
 
@@ -56,6 +86,11 @@ export class MjDynamicFormController {
         this._schemaSubject.next(schema);
     }
 
+    /**
+     * Attaches the controller to a form.
+     * 
+     * @param form The form.
+     */
     attach(form: DynamicFormRef): void {
         if (this._attached) {
             throw new Error("Already attached.");
@@ -80,6 +115,9 @@ export class MjDynamicFormController {
         this._attached = true;
     }
 
+    /**
+     * Detaches the controller from the form.
+     */
     detach(): void {
         if (!this._attached) {
             throw new Error("Not attached.");

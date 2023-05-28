@@ -3,34 +3,58 @@ import { FormControlName, UntypedFormControl, UntypedFormGroup } from "@angular/
 
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 
+/**
+ * A base class for dynamic form widgets.
+ */
 @Directive()
 export abstract class MjDynamicFormWidgetBase {
     private _form: UntypedFormGroup;
     private _control: UntypedFormControl;
     private _fieldAccessor: () => MjDynamicFormSchemaField;
 
+    /**
+     * The FormControlName directive.
+     */
     @ViewChild(FormControlName, { static: false }) formControlName: FormControlName;
 
+    /**
+     * Wether the label is visible.
+     */
     get labelVisible(): boolean {
         return !!this.field.label;
     }
 
+    /**
+     * The field to render.
+     */
     get field(): MjDynamicFormSchemaField {
         return this._fieldAccessor();
     }
 
+    /**
+     * Wether the field is required.
+     */
     get required(): boolean {
         return this.field.validators && this.field.validators["required"] === true;
     }
 
+    /**
+     * The form control.
+     */
     get control(): UntypedFormControl {
         return this._control;
     }
 
+    /**
+     * The form.
+     */
     get form(): UntypedFormGroup {
         return this._form;
     }
 
+    /**
+     * The error message.
+     */
     get error(): string {
         // TODO: get messages from DynamicFormModule.forRoot({ ... }) config "localization.validation"
 

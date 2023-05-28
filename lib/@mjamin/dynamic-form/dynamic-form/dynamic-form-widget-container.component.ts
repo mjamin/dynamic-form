@@ -8,6 +8,9 @@ import { NamedPortalService, NamedPortalServiceContext } from "../core/named-por
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 
+/**
+ * A container for dynamic form widgets.
+ */
 @Component({
     selector: "df-widget-container",
     template: "<ng-template cdkPortalOutlet></ng-template>",
@@ -25,35 +28,64 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _fieldType!: string;
     private _fieldLabel!: string;
 
+    /**
+     * The portal outlet.
+     */
     @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet!: CdkPortalOutlet;
 
+    /**
+     * The field to render.
+     */
     @Input() field!: MjDynamicFormSchemaField;
+
+    /**
+     * The form.
+     */
     @Input() form!: UntypedFormGroup;
 
+    /**
+     * Creates an instance of MjDynamicFormWidgetContainerComponent.
+     * 
+     * @param namedPortalService The named portal service.
+     * @param _viewContainerRef The view container reference.
+     */
     constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
         this._formWidgets = namedPortalService.for("dynamic-form-widgets");
     }
 
+    /**
+     * The raw validator of the widget.
+     */
     get rawValidator(): ValidatorFn {
         return this._componentRef && this._componentRef.instance.formControlName
             ? this._componentRef.instance.formControlName.validator
             : null;
     }
 
+    /**
+     * The form control of the widget.
+     */
     get control(): UntypedFormControl {
         return this._componentRef && this._componentRef.instance.control;
     }
 
+    /**
+     * The total width of the widget.
+     */
     get totalWidth(): number {
         return this.field.space
             ? this.field.space - this.field.width
             : null;
     }
 
+    /**
+     * Marks the widget for check.
+     */
     markForCheck(): void {
         this._componentRef.changeDetectorRef.markForCheck();
     }
 
+    /** @inheritdoc */
     ngDoCheck(): void {
         if (this._fieldType !== this.field.type) {
             this.updateComponentPortal();

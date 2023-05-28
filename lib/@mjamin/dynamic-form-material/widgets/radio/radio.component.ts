@@ -7,6 +7,9 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MjDynamicFormWidgetBase, provideControlContainer } from "@mjamin/dynamic-form";
 import { MjMatFormFieldControlDirective } from "../../shared/mat-form-field-control/mat-form-field-control.directive";
 
+/**
+ * A dynamic form widget for radio buttons.
+ */
 @Component({
     selector: "mj-dynamic-form-widget-radio",
     templateUrl: "./radio.component.html",
@@ -16,6 +19,9 @@ import { MjMatFormFieldControlDirective } from "../../shared/mat-form-field-cont
     imports: [MatFormFieldModule, MatRadioModule, MjMatFormFieldControlDirective, ReactiveFormsModule, NgFor, NgIf]
 })
 export class RadioComponent extends MjDynamicFormWidgetBase {
+    /**
+     * The width of each option in percent.
+     */
     get optionWidth(): number {
         if (!this.field.config?.optionColumns) {
             return null;

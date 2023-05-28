@@ -1,13 +1,15 @@
 /* eslint-disable @angular-eslint/component-selector */
-import { ChangeDetectionStrategy, Component, forwardRef } from "@angular/core";
-
 import { NgFor, NgIf } from "@angular/common";
+import { ChangeDetectionStrategy, Component, forwardRef } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MjDynamicFormBase, provideFormGroupDirective } from "@mjamin/dynamic-form";
 import { MjDynamicFormWidgetContainerComponent } from "../../dynamic-form/dynamic-form/dynamic-form-widget-container.component";
 
+/**
+ * A material design dynamic form.
+ */
 @Component({
     selector: "mj-dynamic-card-form",
     templateUrl: "./card-form.component.html",

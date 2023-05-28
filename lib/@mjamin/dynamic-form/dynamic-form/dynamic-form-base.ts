@@ -2,16 +2,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormGroupDirective, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from "@angular/forms";
-import { distinctUntilChanged, startWith, tap } from "rxjs/operators";
-
 import { withSubscriptionSink } from "@mjamin/common";
-
+import { distinctUntilChanged, startWith, tap } from "rxjs/operators";
 import { MjDynamicFormController } from "./dynamic-form-controller";
 import { DynamicFormEvent, FormInitializedEvent, FormSchemaChangedEvent, FormStatusChangedEvent, FormValueChangedEvent } from "./dynamic-form-event";
 import { DynamicFormRef } from "./dynamic-form-ref";
 import { MjDynamicFormSchema, MjDynamicFormSchemaField, MjDynamicFormSchemaTab } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetContainerComponent } from "./dynamic-form-widget-container.component";
 
+/**
+ * A base class for dynamic forms.
+ */
 @Directive()
 export abstract class MjDynamicFormBase extends withSubscriptionSink() implements DynamicFormRef, OnDestroy, AfterViewInit {
     private _controller: MjDynamicFormController;
@@ -38,7 +39,8 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
     @Input()
     get schema(): MjDynamicFormSchema { return this._schema; }
     set schema(value: MjDynamicFormSchema) { this.setSchema(value); }
-
+    
+    /** @inheritdoc */
     markForCheck(markFields = false): void {
         if (markFields) {
             this._widgetContainers.forEach(c => c.markForCheck());
@@ -47,6 +49,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this._cdr.markForCheck();
     }
 
+    /** @inheritdoc */
     setSchema(schema: MjDynamicFormSchema, emitEvent = true): void {
         this._schema = schema;
 
@@ -59,6 +62,7 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck();
     }
 
+    /** @inheritdoc */
     setValues(values: {[key: string]: any}, emitEvent = true): void {
         this.formGroup.setValue(values);
 
@@ -105,10 +109,12 @@ export abstract class MjDynamicFormBase extends withSubscriptionSink() implement
         this.markForCheck(true);
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         this._controller.detach();
     }
 
+    /** @inheritdoc */
     ngAfterViewInit(): void {
         this.formEvents.emit(new FormInitializedEvent(this.formGroup));
 
