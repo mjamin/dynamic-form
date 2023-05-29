@@ -1,5 +1,5 @@
 <form *ngIf="schema" [formGroup]="formGroup">
-    <nav mat-tab-nav-bar *ngIf="schema.tabs && (schema.tabs.length == 1 && schema.tabs[0].label || schema.tabs.length > 1)" [tabPanel]="tabPanel" style="margin-bottom: 8px">
+    <nav mat-tab-nav-bar *ngIf="schema.tabs && (schema.tabs.length === 1 && schema.tabs[0].label || schema.tabs.length > 1)" [tabPanel]="tabPanel" style="margin-bottom: 8px">
         <div mat-tab-link *ngFor="let tab of schema.tabs; let i = index; trackBy: trackByIdFn" [id]="tab.id" [active]="isSelectedTab(schema, tab, i)" (click)="selectTab(tab)">{{tab.label}}</div>
     </nav>
     <mat-tab-nav-panel #tabPanel>

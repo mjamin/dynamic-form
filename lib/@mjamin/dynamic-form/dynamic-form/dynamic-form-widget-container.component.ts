@@ -110,7 +110,7 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
         }
 
         this._componentRef = this._formWidgets.attachComponent(this.field.type, this.portalOutlet, this._viewContainerRef.injector);
-        if (this._componentRef == null) {
+        if (this._componentRef === null) {
             return;
         }
 
