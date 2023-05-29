@@ -1,9 +1,9 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, Input, QueryList } from "@angular/core";
+import { AfterContentInit, ContentChildren, Directive, Input, QueryList } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { MatCheckbox } from "@angular/material/checkbox";
-import { withSubscriptionSink } from "@mjamin/common";
+import { withChangeDetector, withSubscriptionSink } from "@mjamin/common";
 import { map, startWith, tap } from "rxjs/operators";
 
 /**
@@ -17,7 +17,7 @@ import { map, startWith, tap } from "rxjs/operators";
     ],
     standalone: true
 })
-export class CheckboxGroupDirective extends withSubscriptionSink() implements ControlValueAccessor, AfterContentInit {
+export class CheckboxGroupDirective extends withChangeDetector(withSubscriptionSink()) implements ControlValueAccessor, AfterContentInit {
     private _value: string[] = null;
     private _disabled: boolean;
     private _onChange: (value: string[]) => void = null;
@@ -27,15 +27,6 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
      * The checkboxes of this group.
      */
     @ContentChildren(MatCheckbox, { descendants: true }) checkboxes: QueryList<MatCheckbox>;
-
-    /**
-     * Creates an instance of CheckboxGroupDirective.
-     * 
-     * @param _cdr The change detector reference.
-     */
-    constructor(private _cdr: ChangeDetectorRef) {
-        super();
-    }
 
     /**
      * The value of this group.
@@ -54,7 +45,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
     /** @inheritdoc */
     writeValue(obj: string[]): void {
         this.setValue(obj, true, false);
-        this._cdr.markForCheck();
+        this.changeDetectorRef.markForCheck();
     }
 
     /** @inheritdoc */
@@ -131,7 +122,7 @@ export class CheckboxGroupDirective extends withSubscriptionSink() implements Co
             checkbox.disabled = value;
         });
 
-        this._cdr.detectChanges();
+        this.changeDetectorRef.detectChanges();
     }
 
     private updateCheckboxes(): void {

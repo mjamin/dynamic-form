@@ -1,15 +1,15 @@
 import { AsyncPipe } from "@angular/common";
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormControl } from "@angular/forms";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { withSubscriptionSink } from "@mjamin/common";
+import { withChangeDetector, withSubscriptionSink } from "@mjamin/common";
 import { MjDynamicFormController, MjDynamicFormSchema } from "@mjamin/dynamic-form";
+import { MjCardFormComponent } from "@mjamin/dynamic-form-material";
 import { AngularSplitModule, SplitComponent } from "angular-split";
 import type { editor } from "monaco-editor";
 import { MonacoEditorModule } from "ngx-monaco-editor-v2";
 import { Observable, Subject } from "rxjs";
 import { delay, distinctUntilChanged, map, startWith, tap } from "rxjs/operators";
-import { MjCardFormComponent } from "../../lib/@mjamin/dynamic-form-material/forms/card-form.component";
 import { AppFormActionsComponent } from "./app-form-actions/app-form-actions.component";
 import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
 
@@ -21,7 +21,7 @@ import { EMPTY_FORM, EXAMPLE_FORM } from "./forms";
     standalone: true,
     imports: [AngularSplitModule, MonacoEditorModule, ReactiveFormsModule, MatToolbarModule, AppFormActionsComponent, MjCardFormComponent, AsyncPipe]
 })
-export class AppComponent extends withSubscriptionSink() implements AfterViewInit {
+export class AppComponent extends withChangeDetector(withSubscriptionSink()) implements AfterViewInit {
     private _editor: editor.IEditor;
     private _editorDecorationsChange = new Subject<editor.IMarker[]>();
 
@@ -31,10 +31,6 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
     editorOptions: editor.IStandaloneEditorConstructionOptions = { theme: "vs" };
     formController = new MjDynamicFormController();
     hasErrors = false;
-
-    constructor(private _cdr: ChangeDetectorRef) {
-        super();
-    }
 
     get values(): Observable<string> {
         return this.formController.values.pipe(
@@ -91,7 +87,7 @@ export class AppComponent extends withSubscriptionSink() implements AfterViewIni
             distinctUntilChanged(),
             tap(hasErrors => {
                 this.hasErrors = hasErrors;
-                this._cdr.detectChanges();
+                this.changeDetectorRef.detectChanges();
             })
         ));
     }
