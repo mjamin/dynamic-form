@@ -38,7 +38,9 @@ export const NAMED_PORTAL_COLLECTION = new InjectionToken<NamedPortalCollection>
  */
 @Injectable({ providedIn: "root" })
 export class NamedPortalService {
-    constructor(@Inject(NAMED_PORTAL_COLLECTION) private _namedPortalCollections: NamedPortalCollection[], private _injector: Injector) { }
+    constructor(
+        @Inject(NAMED_PORTAL_COLLECTION) private _namedPortalCollections: NamedPortalCollection[]
+    ) { }
 
     /**
      * Create a context for attaching named portals.
@@ -53,7 +55,7 @@ export class NamedPortalService {
             .map(c => c.portals)
             .reduce((a, b) => ({...a, ...b}), {});
 
-        return new NamedPortalServiceContext(namedPortals, this._injector, defaultType);
+        return new NamedPortalServiceContext(namedPortals, defaultType);
     }
 }
 
@@ -61,7 +63,10 @@ export class NamedPortalService {
  * A context for attaching named portals.
  */
 export class NamedPortalServiceContext<TComponent> {
-    constructor(private _namedPortals: NamedPortals, private _injector: Injector, private _defaultType: ComponentType<TComponent> = null) { }
+    constructor(
+        private _namedPortals: NamedPortals,
+        private _defaultType: ComponentType<TComponent> = null
+    ) { }
 
     /**
      * Attach a template to the given outlet.

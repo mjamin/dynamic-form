@@ -49,7 +49,10 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
      * @param namedPortalService The named portal service.
      * @param _viewContainerRef The view container reference.
      */
-    constructor(namedPortalService: NamedPortalService, private _viewContainerRef: ViewContainerRef) {
+    constructor(
+        namedPortalService: NamedPortalService,
+        private _viewContainerRef: ViewContainerRef
+    ) {
         this._formWidgets = namedPortalService.for("dynamic-form-widgets");
     }
 

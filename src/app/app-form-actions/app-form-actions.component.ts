@@ -11,12 +11,10 @@ import { MatIconModule } from "@angular/material/icon";
     imports: [MatButtonModule, MatIconModule, NgIf]
 })
 export class AppFormActionsComponent {
-    @Input() valid = false;
-
-    @Input() test: number;
-
     @Output() saveForm = new EventEmitter<Event>();
     @Output() resetForm = new EventEmitter<void>();
     @Output() deleteForm = new EventEmitter<void>();
     @Output() loadForm = new EventEmitter<void>();
+
+    @Input() valid = false;
 }

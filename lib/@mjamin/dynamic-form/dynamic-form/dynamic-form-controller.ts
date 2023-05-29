@@ -65,10 +65,8 @@ export class MjDynamicFormController {
         this._values = values;
 
         if (this._attached) {
-            this._formRef.setValues(values, false);
+            this._formRef.setValues(values);
         }
-
-        this._valuesSubject.next(values);
     }
 
     /**
@@ -80,10 +78,8 @@ export class MjDynamicFormController {
         this._schema = schema;
 
         if (this._attached) {
-            this._formRef.setSchema(schema, false);
+            this._formRef.setSchema(schema);
         }
-
-        this._schemaSubject.next(schema);
     }
 
     /**
