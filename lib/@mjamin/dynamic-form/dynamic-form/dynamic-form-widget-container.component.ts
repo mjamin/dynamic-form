@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, ComponentRef, DoCheck, Input, ViewC
 import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from "@angular/forms";
 
 import { NamedPortalService, NamedPortalServiceContext } from "../core/named-portals";
+import { PlaceholderComponent } from "../widgets/placeholder/placeholder.component";
 import { MjDynamicFormSchemaField } from "./dynamic-form-schema";
 import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 
@@ -53,7 +54,7 @@ export class MjDynamicFormWidgetContainerComponent implements DoCheck {
         namedPortalService: NamedPortalService,
         private _viewContainerRef: ViewContainerRef
     ) {
-        this._formWidgets = namedPortalService.for("dynamic-form-widgets");
+        this._formWidgets = namedPortalService.for("dynamic-form-widgets", PlaceholderComponent);
     }
 
     /**

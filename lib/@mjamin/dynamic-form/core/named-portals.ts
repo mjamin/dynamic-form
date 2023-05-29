@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CdkPortalOutlet, ComponentPortal, ComponentType, TemplatePortal } from "@angular/cdk/portal";
-import { ComponentRef, EmbeddedViewRef, Inject, Injectable, InjectionToken, Injector, Provider, StaticProvider, TemplateRef } from "@angular/core";
+import { ComponentRef, EmbeddedViewRef, Inject, Injectable, InjectionToken, Injector, Optional, Provider, StaticProvider, TemplateRef } from "@angular/core";
 
 /**
  * A map of named portals.
@@ -39,7 +39,7 @@ export const NAMED_PORTAL_COLLECTION = new InjectionToken<NamedPortalCollection>
 @Injectable({ providedIn: "root" })
 export class NamedPortalService {
     constructor(
-        @Inject(NAMED_PORTAL_COLLECTION) private _namedPortalCollections: NamedPortalCollection[]
+        @Optional() @Inject(NAMED_PORTAL_COLLECTION) private _namedPortalCollections: NamedPortalCollection[]
     ) { }
 
     /**
@@ -51,9 +51,11 @@ export class NamedPortalService {
      */
     for<T>(collectionName: string, defaultType: ComponentType<T> = null): NamedPortalServiceContext<T> {
         const namedPortals = this._namedPortalCollections
-            .filter(c => c.name === collectionName)
-            .map(c => c.portals)
-            .reduce((a, b) => ({...a, ...b}), {});
+            ? this._namedPortalCollections
+                .filter(c => c.name === collectionName)
+                .map(c => c.portals)
+                .reduce((a, b) => ({...a, ...b}), {})
+            : {};
 
         return new NamedPortalServiceContext(namedPortals, defaultType);
     }

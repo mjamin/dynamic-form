@@ -14,8 +14,8 @@ import { provideFormGroupDirective } from "./provide-form-group-directive";
     templateUrl: "./dynamic-form.component.html",
     styleUrls: ["./dynamic-form.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [provideFormGroupDirective(forwardRef(() => DynamicFormComponent))],
+    providers: [provideFormGroupDirective(forwardRef(() => MjDynamicFormComponent))],
     standalone: true,
     imports: [NgIf, ReactiveFormsModule, NgFor, MjDynamicFormWidgetContainerComponent]
 })
-export class DynamicFormComponent extends MjDynamicFormBase { }
+export class MjDynamicFormComponent extends MjDynamicFormBase { }
