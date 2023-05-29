@@ -24,24 +24,24 @@ import { MjDynamicFormWidgetBase } from "./dynamic-form-widget-base";
 })
 export class MjDynamicFormWidgetContainerComponent implements DoCheck {
     private _formWidgets: NamedPortalServiceContext<MjDynamicFormWidgetBase>;
-    private _componentRef!: ComponentRef<MjDynamicFormWidgetBase>;
-    private _fieldType!: string;
-    private _fieldLabel!: string;
+    private _componentRef: ComponentRef<MjDynamicFormWidgetBase>;
+    private _fieldType: string;
+    private _fieldLabel: string;
 
     /**
      * The portal outlet.
      */
-    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet!: CdkPortalOutlet;
+    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
 
     /**
      * The field to render.
      */
-    @Input() field!: MjDynamicFormSchemaField;
+    @Input() field: MjDynamicFormSchemaField;
 
     /**
      * The form.
      */
-    @Input() form!: UntypedFormGroup;
+    @Input() form: UntypedFormGroup;
 
     /**
      * Creates an instance of MjDynamicFormWidgetContainerComponent.
